@@ -1,6 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
+const Faker = require('faker')
 const {User, Book, Order} = require('../server/db/models')
 
 async function seed() {
@@ -13,12 +14,6 @@ async function seed() {
       password: '123',
       name: 'Phone',
       address: '123 Court Lane'
-    }),
-    User.create({
-      email: 'murphy@email.com',
-      password: '123',
-      name: 'Murphy',
-      address: 'Your moms house'
     })
   ])
 
@@ -51,6 +46,28 @@ async function seed() {
       ratings: 5
     })
   ])
+
+  for (let i = 0; i < 100; i++) {
+    await Book.create({
+      author: Faker.name.findName(),
+      title: Faker.company.catchPhrase(),
+      genre: 'Steamy Romance',
+      synopsis: Faker.lorem.paragraph(),
+      imageUrl: Faker.image.imageUrl(),
+      price: Faker.random.number(),
+      quantity: Faker.random.number(),
+      ratings: 3
+    })
+  }
+
+  for (let i = 0; i < 100; i++) {
+    await User.create({
+      name: Faker.name.findName(),
+      email: Faker.internet.email(),
+      password: Faker.internet.password(),
+      address: Faker.address.streetAddress()
+    })
+  }
 
   const order = await Promise.all([
     Order.create({status: 'cart', userId: 1}),
