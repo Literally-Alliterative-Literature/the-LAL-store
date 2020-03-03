@@ -4,6 +4,12 @@ const db = require('../server/db')
 const Faker = require('faker')
 const {User, Book, Order} = require('../server/db/models')
 
+function getRandomInt(min, max) {
+  min = Math.ceil(min)
+  max = Math.floor(max)
+  return Math.floor(Math.random() * (max - min)) + min //The maximum is exclusive and the minimum is inclusive
+}
+
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
@@ -53,8 +59,7 @@ async function seed() {
       title: Faker.company.catchPhrase(),
       genre: 'Steamy Romance',
       synopsis: Faker.lorem.paragraph(),
-      imageUrl: Faker.image.imageUrl(),
-      price: Faker.random.number(),
+      price: getRandomInt(5, 30),
       quantity: Faker.random.number(),
       ratings: 3
     })

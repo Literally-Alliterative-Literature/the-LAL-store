@@ -10,6 +10,11 @@ label {
   display: block;
 }
 
+img {
+  max-height: 300px;
+  max-width: 200px;
+}
+
 nav a {
   display: inline-block;
   margin: 1em;

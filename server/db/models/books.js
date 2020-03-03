@@ -24,7 +24,7 @@ const Book = db.define('book', {
   },
   imageUrl: {
     type: Sequelize.STRING,
-    defaultValue: 'book.png'
+    defaultValue: '/images/rewriting.jpg'
   },
   price: {
     type: Sequelize.DECIMAL(10, 2),
