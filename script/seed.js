@@ -1,18 +1,66 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Book, Order} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
   const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
+    User.create({
+      email: 'fullstack@email.com',
+      password: '123',
+      name: 'Phone',
+      address: '123 Court Lane'
+    }),
+    User.create({
+      email: 'murphy@email.com',
+      password: '123',
+      name: 'Murphy',
+      address: 'Your moms house'
+    })
+  ])
+
+  const books = await Promise.all([
+    Book.create({
+      author: 'Jason',
+      title: '50 shades of Jason',
+      genre: 'Steamy Romance',
+      synopsis: 'Twilight spinoff garbage',
+      price: 2,
+      quantity: 5000,
+      ratings: 5
+    }),
+    Book.create({
+      author: 'Jason',
+      title: '51 shades of Jason',
+      genre: 'Steamy Romance',
+      synopsis: 'Jasons saga continues',
+      price: 10,
+      quantity: 5000,
+      ratings: 5
+    }),
+    Book.create({
+      author: 'Jason',
+      title: '52 shades of Jason',
+      genre: 'Steamy Romance',
+      synopsis: 'Jason is unstoppable  wink wink',
+      price: 100,
+      quantity: 5000,
+      ratings: 5
+    })
+  ])
+
+  const order = await Promise.all([
+    Order.create({status: 'cart', userId: 1}),
+    Order.create({status: 'cart', userId: 2}),
+    Order.create({status: 'purchased', userId: 1})
   ])
 
   console.log(`seeded ${users.length} users`)
+  console.log(`seeded ${books.length} books`)
+  console.log(`seeded ${order.length} order`)
   console.log(`seeded successfully`)
 }
 
