@@ -28,11 +28,24 @@ router.post('/', async (req, res, next) => {
     let orderToJason = order[0].toJSON()
     await OrderItem.create({
       orderId: orderToJason.id,
-      bookId: req.body.id,
-      currentPrice: req.body.price
+      bookId: req.body.book.id,
+      currentPrice: req.body.book.price,
+      quantity: req.body.quantity
     })
     let kylieOrderItem = await OrderItem.findNameByOrderId(orderToJason.id)
     res.status(200).json(kylieOrderItem)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/', async (req, res, next) => {
+  try {
+    console.log('gimme req.body', req.body)
+    let order = await OrderItem.findByPk(req.body.orderItemId)
+    order.quantity = req.body.quantity
+    order.save()
+    res.sendStatus(200)
   } catch (err) {
     next(err)
   }

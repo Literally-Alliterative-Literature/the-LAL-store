@@ -4,8 +4,9 @@ import {fetchSingleBook} from '../store/singleBook'
 import {addToCart} from '../store/shoppingcart'
 
 function SingleBook(props) {
-  const handleClick = () => {
-    props.handleAddToCart(props.book)
+  const handleClick = event => {
+    event.preventDefault()
+    props.handleAddToCart(props.book, event.target.quantity.value)
   }
 
   if (!props.book) props.book = []
@@ -22,15 +23,10 @@ function SingleBook(props) {
       <p>{props.book.synopsis}</p>
       <p>{props.book.price}</p>
       <p>{props.book.ratings}</p>
-      <button
-        type="button"
-        onClick={() => {
-          handleClick()
-        }}
-      >
-        Add To Cart
-      </button>
-
+      <form onSubmit={handleClick}>
+        <input className="form-control" type="number" name="quantity" />
+        <button type="submit">Add To Cart</button>
+      </form>
       <h3>Reviews</h3>
       {!props.book.reviews.length ? (
         <p>No Reviews</p>
@@ -52,7 +48,7 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
   loadSingleBook: id => dispatch(fetchSingleBook(id)),
-  handleAddToCart: book => dispatch(addToCart(book))
+  handleAddToCart: (book, quantity) => dispatch(addToCart(book, quantity))
 })
 
 export default connect(mapState, mapDispatch)(SingleBook)
