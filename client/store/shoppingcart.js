@@ -9,11 +9,21 @@ const getCart = cart => ({
   cart
 })
 
+export const addToCart = book => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.post('/api/cart', book)
+      dispatch(getCart(data))
+    } catch (err) {
+      console.log('Something went wrong inside addToCart! Err is, ', err)
+    }
+  }
+}
+
 export const fetchCart = () => {
   return async dispatch => {
     try {
       const {data} = await axios.get('/api/cart')
-      console.log('gimme data', data)
       dispatch(getCart(data))
     } catch (err) {
       console.log('Something went wrong inside of fetchCart! Err is: ', err)

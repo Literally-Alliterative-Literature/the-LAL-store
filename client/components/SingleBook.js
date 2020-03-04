@@ -1,8 +1,13 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import {fetchSingleBook} from '../store/singleBook'
+import {addToCart} from '../store/shoppingcart'
 
 function SingleBook(props) {
+  const handleClick = () => {
+    props.handleAddToCart(props.book)
+  }
+
   if (!props.book) props.book = []
   useEffect(() => {
     props.loadSingleBook(props.match.params.id)
@@ -17,6 +22,14 @@ function SingleBook(props) {
       <p>{props.book.synopsis}</p>
       <p>{props.book.price}</p>
       <p>{props.book.ratings}</p>
+      <button
+        type="button"
+        onClick={() => {
+          handleClick()
+        }}
+      >
+        Add To Cart
+      </button>
 
       <h3>Reviews</h3>
       {!props.book.reviews.length ? (
@@ -38,7 +51,8 @@ const mapState = state => ({
 })
 
 const mapDispatch = dispatch => ({
-  loadSingleBook: id => dispatch(fetchSingleBook(id))
+  loadSingleBook: id => dispatch(fetchSingleBook(id)),
+  handleAddToCart: book => dispatch(addToCart(book))
 })
 
 export default connect(mapState, mapDispatch)(SingleBook)
