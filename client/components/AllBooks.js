@@ -7,7 +7,6 @@ function AllBooks(props) {
   useEffect(() => {
     props.loadBooks()
   }, [])
-  console.log('props is: ', props)
   return (
     <div>
       {props.books.length
