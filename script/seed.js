@@ -2,7 +2,7 @@
 
 const db = require('../server/db')
 const Faker = require('faker')
-const {User, Book, Order} = require('../server/db/models')
+const {User, Book, Order, OrderItem} = require('../server/db/models')
 
 function getRandomInt(min, max) {
   min = Math.ceil(min)
@@ -79,10 +79,16 @@ async function seed() {
     Order.create({status: 'cart', userId: 2}),
     Order.create({status: 'purchased', userId: 1})
   ])
+  const orderItems = await Promise.all([
+    OrderItem.create({quantity: 10, currentPrice: 10, orderId: 1, bookId: 2}),
+    OrderItem.create({quantity: 10, currentPrice: 10, orderId: 2, bookId: 3}),
+    OrderItem.create({quantity: 10, currentPrice: 10, orderId: 3, bookId: 5})
+  ])
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${books.length} books`)
   console.log(`seeded ${order.length} order`)
+  console.log(`seeded ${orderItems.length} order`)
   console.log(`seeded successfully`)
 }
 
