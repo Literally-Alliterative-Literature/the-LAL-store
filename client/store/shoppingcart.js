@@ -9,10 +9,11 @@ const getCart = cart => ({
   cart
 })
 
-export const fetchCart = userId => {
+export const fetchCart = () => {
   return async dispatch => {
     try {
-      const {data} = await axios.get('/api/cart', userId)
+      const {data} = await axios.get('/api/cart')
+      console.log('gimme data', data)
       dispatch(getCart(data))
     } catch (err) {
       console.log('Something went wrong inside of fetchCart! Err is: ', err)
