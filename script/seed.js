@@ -93,6 +93,14 @@ async function seed() {
     })
   }
 
+  await User.create({
+    email: 'lal1@email.com',
+    password: '123',
+    name: 'Yoyoyoyoyoyoyoyoyo',
+    address: '123 Court Lane',
+    adminAccess: false
+  })
+
   const order = await Promise.all([
     Order.create({status: 'cart', userId: 1}),
     Order.create({status: 'cart', userId: 2}),

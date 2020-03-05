@@ -3,8 +3,11 @@ const {User, Order, OrderItem} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
-  console.log('session is', req.session)
-
+  console.log('req.user is: ', req.user)
+  if (!req.session.passport) {
+    res.sendStatus(404)
+    return
+  }
   try {
     const order = await Order.findOne({
       where: {userId: req.session.passport.user}
@@ -52,7 +55,6 @@ router.put('/', async (req, res, next) => {
 
 router.delete('/:itemId', async (req, res, next) => {
   try {
-    console.log('req.params is: ', req.params.itemId)
     let order = await OrderItem.findByPk(req.params.itemId)
     await order.destroy()
     res.sendStatus(200)
