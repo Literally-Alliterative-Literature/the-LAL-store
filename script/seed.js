@@ -20,6 +20,12 @@ async function seed() {
       password: '123',
       name: 'Phone',
       address: '123 Court Lane'
+    }),
+    User.create({
+      email: 'lal@email.com',
+      password: '321',
+      name: 'Beautiful Milos',
+      address: '123 Court Lane'
     })
   ])
 
@@ -54,6 +60,18 @@ async function seed() {
   ])
 
   for (let i = 0; i < 100; i++) {
+    if (i % 2 === 0) {
+      await Book.create({
+        author: Faker.name.findName(),
+        title: Faker.company.catchPhrase(),
+        genre: 'Steamy Romance',
+        synopsis: Faker.lorem.paragraph(),
+        price: getRandomInt(5, 30),
+        imageUrl: '/images/orly.jpg',
+        quantity: Faker.random.number(),
+        ratings: 3
+      })
+    }
     await Book.create({
       author: Faker.name.findName(),
       title: Faker.company.catchPhrase(),
