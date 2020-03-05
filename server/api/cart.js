@@ -3,12 +3,12 @@ const {User, Order, OrderItem} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
-  try {
-    let userId = req.session.passport.user
-    const order = await Order.findOne({
-      userId: userId
-    })
+  console.log('session is', req.session)
 
+  try {
+    const order = await Order.findOne({
+      where: {userId: req.session.passport.user}
+    })
     let jsonOrder = order.toJSON()
     let kylieOrderItem = await OrderItem.findNameByOrderId(jsonOrder.id)
     let jsonArray = []
@@ -41,10 +41,20 @@ router.post('/', async (req, res, next) => {
 
 router.put('/', async (req, res, next) => {
   try {
-    console.log('gimme req.body', req.body)
     let order = await OrderItem.findByPk(req.body.orderItemId)
     order.quantity = req.body.quantity
     order.save()
+    res.sendStatus(200)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.delete('/:itemId', async (req, res, next) => {
+  try {
+    console.log('req.params is: ', req.params.itemId)
+    let order = await OrderItem.findByPk(req.params.itemId)
+    await order.destroy()
     res.sendStatus(200)
   } catch (err) {
     next(err)

@@ -2,6 +2,7 @@ import axios from 'axios'
 
 const GET_CART = 'GET_CART'
 const GET_UPDATED_QUANTITY = 'GET_UPDATED_QUANTITY'
+const DELETE_ORDERITEM = 'DELETE_ORDERITEM'
 const defaultCart = []
 
 const getCart = cart => ({
@@ -12,6 +13,11 @@ const getCart = cart => ({
 const gotQuantityChange = (quantity, orderItemId) => ({
   type: GET_UPDATED_QUANTITY,
   quantity,
+  orderItemId
+})
+
+const deleteOrderItem = orderItemId => ({
+  type: DELETE_ORDERITEM,
   orderItemId
 })
 
@@ -32,7 +38,18 @@ export const editQuantity = (orderItemId, quantity) => {
       await axios.put('/api/cart', {quantity, orderItemId})
       dispatch(gotQuantityChange(quantity, orderItemId))
     } catch (err) {
-      console.log('Something went wrong inside editQuantity! Err is, ', err)
+      console.log('Something went wrong inside editQuantity! Err is: ', err)
+    }
+  }
+}
+
+export const deleteItem = itemId => {
+  return async dispatch => {
+    try {
+      await axios.delete(`/api/cart/${itemId}`)
+      dispatch(deleteOrderItem(itemId))
+    } catch (err) {
+      console.log('Something went wrong inside deleteItem! Err is: ', err)
     }
   }
 }
@@ -59,6 +76,8 @@ export default function(state = defaultCart, action) {
         }
         return orderItem
       })
+    case DELETE_ORDERITEM:
+      return state.filter(orderItem => orderItem.id !== action.orderItemId)
     default:
       return state
   }

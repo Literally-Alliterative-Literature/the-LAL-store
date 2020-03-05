@@ -1,11 +1,14 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {connect} from 'react-redux'
 import {fetchSingleBook} from '../store/singleBook'
 import {addToCart} from '../store/shoppingcart'
 
 function SingleBook(props) {
+  const [toCart, setToCart] = useState(false)
   const handleClick = event => {
     event.preventDefault()
+    setToCart(true)
+    if (!event.target.quantity.value) event.target.quantity.value = 1
     props.handleAddToCart(props.book, event.target.quantity.value)
   }
 
@@ -24,9 +27,16 @@ function SingleBook(props) {
       <p>{props.book.price}</p>
       <p>{props.book.ratings}</p>
       <form onSubmit={handleClick}>
-        <input className="form-control" type="number" name="quantity" />
+        <input
+          className="form-control"
+          type="number"
+          name="quantity"
+          min="0"
+          max="1000"
+        />
         <button type="submit">Add To Cart</button>
       </form>
+      {toCart ? <p>Item added to cart</p> : false}
       <h3>Reviews</h3>
       {!props.book.reviews.length ? (
         <p>No Reviews</p>
