@@ -34,7 +34,9 @@ function SingleBook(props) {
           min="0"
           max="1000"
         />
-        <button type="submit">Add To Cart</button>
+        <button className="button is-danger is-outlined" type="submit">
+          Add To Cart
+        </button>
       </form>
       {toCart ? <p>Item added to cart</p> : false}
       <h3>Reviews</h3>
