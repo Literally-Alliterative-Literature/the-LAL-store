@@ -3,12 +3,12 @@ const {User, Order, OrderItem} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
-  try {
-    let userId = req.session.passport.user
-    const order = await Order.findOne({
-      userId: userId
-    })
+  console.log('session is', req.session)
 
+  try {
+    const order = await Order.findOne({
+      where: {userId: req.session.passport.user}
+    })
     let jsonOrder = order.toJSON()
     let kylieOrderItem = await OrderItem.findNameByOrderId(jsonOrder.id)
     let jsonArray = []

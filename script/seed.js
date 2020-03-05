@@ -19,7 +19,8 @@ async function seed() {
       email: 'fullstack@email.com',
       password: '123',
       name: 'Phone',
-      address: '123 Court Lane'
+      address: '123 Court Lane',
+      adminAccess: true
     }),
     User.create({
       email: 'lal@email.com',
