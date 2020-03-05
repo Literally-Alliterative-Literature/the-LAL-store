@@ -27,7 +27,13 @@ function SingleBook(props) {
       <p>{props.book.price}</p>
       <p>{props.book.ratings}</p>
       <form onSubmit={handleClick}>
-        <input className="form-control" type="number" name="quantity" />
+        <input
+          className="form-control"
+          type="number"
+          name="quantity"
+          min="0"
+          max="1000"
+        />
         <button type="submit">Add To Cart</button>
       </form>
       {toCart ? <p>Item added to cart</p> : false}

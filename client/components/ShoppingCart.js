@@ -32,6 +32,8 @@ function ShoppingCart(props) {
                     className="form-control"
                     type="number"
                     name="quantity"
+                    min="1"
+                    max="1000"
                   />
                   <button type="submit">Change Quantity</button>
                 </form>
