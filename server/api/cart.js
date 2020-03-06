@@ -13,7 +13,7 @@ router.get('/', async (req, res, next) => {
       req.session.shoppingCart = []
       res.status(200).json(req.session.shoppingCart)
     }
-    return
+    return //if guest user, do not run any more code
   }
   try {
     //get shopping cart for a user
@@ -33,13 +33,12 @@ router.get('/', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
+  //check if user exists. If not, add item to session guest shoppingCart instead
   if (!req.user) {
-    //check if user exists. If not, add item to session guest shoppingCart instead
-    const book = await Book.findByPk(req.body.book.id)
     //need to attach the book to this shoppingObj in order to mimic the return from our actual shopping cart.
+    const book = await Book.findByPk(req.body.book.id)
 
-    // req.session.shoppingCart = [] //temporary solution to clear guest shoppingCart. Will delete later.
-
+    //guestShoppingObj is an object that holds the exact same data as our actual shopping cart's objects would. This will make it easier to put it into the database later.
     let guestShoppingObj = {
       id: req.session.shoppingCart.length + 1,
       orderId: -1,
@@ -48,9 +47,11 @@ router.post('/', async (req, res, next) => {
       quantity: req.body.quantity,
       book
     }
+
     req.session.shoppingCart.push(guestShoppingObj)
     res.status(200).json(req.session.shoppingCart)
-    return
+
+    return //if guest user, do not run any more code
   }
   try {
     let userId = req.session.passport.user
@@ -70,15 +71,15 @@ router.post('/', async (req, res, next) => {
 })
 
 router.put('/', async (req, res, next) => {
+  //check if user exists. If not, modify guest shopping cart instead.
   if (!req.user) {
-    //check if user exists. If not, modify guest shopping cart instead.
     for (let i = 0; i < req.session.shoppingCart.length; i++) {
       if (req.body.orderItemId === req.session.shoppingCart[i].id) {
         req.session.shoppingCart[i].quantity = req.body.quantity
       }
     }
     res.sendStatus(200)
-    return
+    return //if guest user, do not run any more code
   }
   try {
     let order = await OrderItem.findByPk(req.body.orderItemId)
@@ -91,6 +92,17 @@ router.put('/', async (req, res, next) => {
 })
 
 router.delete('/:itemId', async (req, res, next) => {
+  //check if user exists. If not, delete from guest shopping cart instead.req.session.shoppingCart)
+  if (!req.user) {
+    for (let i = 0; i < req.session.shoppingCart.length; i++) {
+      //loosely equals used here because itemId is a string and the shoppingcart id is a number
+      if (req.params.itemId == req.session.shoppingCart[i].id) {
+        req.session.shoppingCart.splice(i, 1)
+      }
+    }
+    res.sendStatus(200)
+    return //if guest user, do not run any more code
+  }
   try {
     let order = await OrderItem.findByPk(req.params.itemId)
     await order.destroy()

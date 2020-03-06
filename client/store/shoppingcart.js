@@ -58,7 +58,6 @@ export const fetchCart = () => {
   return async dispatch => {
     try {
       const {data} = await axios.get('/api/cart')
-      console.log('data is: ', data)
       dispatch(getCart(data))
     } catch (err) {
       console.log('Something went wrong inside of fetchCart! Err is: ', err)
