@@ -21,3 +21,24 @@ router.get('/', checkToken, async (req, res, next) => {
     next(err)
   }
 })
+
+router.post('/', async (req, res, next) => {
+  if (!req.user) {
+    //If you are not a logged in user, get the heck outta here.
+    return
+  }
+  try {
+    const userId = req.session.passport.user
+    const user = await User.findByPk(userId)
+    user.name = req.body.name
+    user.email = req.body.email
+    if (req.body.password) {
+      user.password = req.body.password
+    }
+    user.address = req.body.address
+    user.save()
+    res.status(200).json(user)
+  } catch (err) {
+    next(err)
+  }
+})
