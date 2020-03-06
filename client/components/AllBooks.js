@@ -9,11 +9,15 @@ function AllBooks(props) {
     props.loadBooks()
   }, [])
   return (
-    <div>
+    <div className="columns is-primary is-multiline">
       {props.books.length
         ? props.books.map(book => {
             return (
-              <div className="allBooks" key={book.id}>
+              <div
+                className="column is-one-third has-text-centered"
+                // className="allBooks box has-text-centered has-background-primary is-light"
+                key={book.id}
+              >
                 <Link to={`/books/${book.id}`}>
                   <img src={book.imageUrl} />
                   <h3>{book.title}</h3>
