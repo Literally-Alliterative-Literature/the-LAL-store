@@ -9,7 +9,7 @@ function AllBooks(props) {
     props.loadBooks()
   }, [])
   return (
-    <div className="columns is-primary is-multiline">
+    <div className="columns is-multiline">
       {props.books.length
         ? props.books.map(book => {
             return (

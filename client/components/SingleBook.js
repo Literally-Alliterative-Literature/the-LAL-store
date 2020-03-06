@@ -17,7 +17,29 @@ function SingleBook(props) {
     props.loadSingleBook(props.match.params.id)
   }, [])
 
+  const turnRatingIntoArr = rating => {
+    let ratingArr = []
+    for (let i = 0; i < rating; i++) {
+      ratingArr.push(i)
+    }
+    return ratingArr
+  }
+
+  let singleBookRating
+
   if (!props.book.reviews) props.book.reviews = []
+  else {
+    singleBookRating =
+      props.book.reviews.reduce((accum, review) => accum + review.rating, 0) /
+      props.book.reviews.length
+    Math.round(singleBookRating)
+    singleBookRating = turnRatingIntoArr(singleBookRating)
+  }
+
+  const getDateString = date => {
+    let short = date.slice(0, 10)
+    return `${short.slice(5, 7)}/${short.slice(8)}/${short.slice(0, 4)}`
+  }
 
   return (
     <div className="columns has-text-centered">
@@ -27,18 +49,41 @@ function SingleBook(props) {
         <img src={props.book.imageUrl} />
         <p>{props.book.genre}</p>
         <p>{props.book.synopsis}</p>
-        <p>Rating: {props.book.ratings}</p>
-        <h3 className="subtitle">Reviews</h3>
-        {!props.book.reviews.length ? (
-          <p>No Reviews</p>
-        ) : (
-          props.book.reviews.map(review => (
-            <div key={review.id} className="review">
-              <p>{review.rating}</p>
-              <p>{review.review}</p>
-            </div>
-          ))
-        )}
+        <p>
+          Rating:
+          {props.book.reviews.length ? (
+            singleBookRating.map(elem => (
+              <span className="icon" key={elem}>
+                <i className="fas fa-star has-text-warning" />
+              </span>
+            ))
+          ) : (
+            <span>No Ratings</span>
+          )}
+        </p>
+        <div className="box has-background-link">
+          <h3 className="subtitle">Reviews</h3>
+          {!props.book.reviews.length ? (
+            <p>No Reviews</p>
+          ) : (
+            props.book.reviews.map(review => {
+              return (
+                <div key={review.id} className="review">
+                  <span>
+                    {review.user.name} {getDateString(review.createdAt)}
+                    {'   '}
+                    {turnRatingIntoArr(review.rating).map(elem => (
+                      <span className="icon" key={elem}>
+                        <i className="fas fa-star has-text-warning" />
+                      </span>
+                    ))}
+                  </span>
+                  <p>{review.review}</p>
+                </div>
+              )
+            })
+          )}
+        </div>
       </div>
       <div className="column is-one-third">
         <p>${props.book.price}</p>
