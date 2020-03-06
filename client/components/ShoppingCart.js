@@ -22,14 +22,16 @@ function ShoppingCart(props) {
         {props.cart.length ? (
           props.cart.map(item => {
             return (
-              <li className="tile is-parent is-9 box is-primary" key={item.id}>
-                <div className="tile is-child">
-                  <h3 className="title">Title: {item.book.title}</h3>
+              <li
+                className="tile is-parent is-9 box has-background-primary"
+                key={item.id}
+              >
+                <div className="tile is-child has-text-centered">
+                  <h3 className="subtitle">Title: {item.book.title}</h3>
                   <p className="subtitle">Author: {item.book.author}</p>
                   <h5 className="content">${item.book.price}</h5>
-                  <img src={item.book.imageUrl} />
                 </div>
-                <div className="tile is-child">
+                <div className="tile is-child has-text-centered">
                   <p className="content">quantity: {item.quantity}</p>
                   <form
                     className="content"
@@ -51,6 +53,7 @@ function ShoppingCart(props) {
                   </form>
                 </div>
                 <div className="tile is-child">
+                  <img src={item.book.imageUrl} />
                   <button
                     type="button"
                     className="delete is-medium"
@@ -66,10 +69,8 @@ function ShoppingCart(props) {
           <h2>No items in cart</h2>
         )}
       </ol>
-      <div className="tile is-parent is-1 notification is-warning">
-        <Link to="/checkout" className="tile is-child is-vertical is-1">
-          Checkout
-        </Link>
+      <div className="box has-background-warning">
+        <Link to="/checkout">Checkout</Link>
       </div>
     </div>
   )

@@ -46,9 +46,21 @@ $primary-invert: $pink-invert;
 // 4. Import the rest of Bulma
 */
 /*! bulma.io v0.7.2 | MIT License | github.com/jgthms/bulma */
+.allBooksContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 
-body {
-  background-color: lightslategray;
+.allBooks {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex-grow: 1;
+  max-height: 700px;
+  max-width: 300px;
+  justify-items: center;
 }
 
 @-webkit-keyframes spinAround {
@@ -392,6 +404,7 @@ textarea {
 
 html {
   box-sizing: border-box;
+  background-color: lightslategray;
 }
 
 *,

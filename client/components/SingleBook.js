@@ -16,40 +16,46 @@ function SingleBook(props) {
   useEffect(() => {
     props.loadSingleBook(props.match.params.id)
   }, [])
+
   if (!props.book.reviews) props.book.reviews = []
+
   return (
-    <div>
-      <h2>{props.book.title}</h2>
-      <h3>{props.book.author}</h3>
-      <img src={props.book.imageUrl} />
-      <p>{props.book.genre}</p>
-      <p>{props.book.synopsis}</p>
-      <p>{props.book.price}</p>
-      <p>{props.book.ratings}</p>
-      <form onSubmit={handleClick}>
-        <input
-          className="form-control"
-          type="number"
-          name="quantity"
-          min="0"
-          max="1000"
-        />
-        <button className="button is-danger is-outlined" type="submit">
-          Add To Cart
-        </button>
-      </form>
-      {toCart ? <p>Item added to cart</p> : false}
-      <h3>Reviews</h3>
-      {!props.book.reviews.length ? (
-        <p>No Reviews</p>
-      ) : (
-        props.book.reviews.map(review => (
-          <div key={review.id} className="review">
-            <p>{review.rating}</p>
-            <p>{review.review}</p>
-          </div>
-        ))
-      )}
+    <div className="columns has-text-centered">
+      <div className="column">
+        <h2 className="title">{props.book.title}</h2>
+        <h3 className="subtitle">{props.book.author}</h3>
+        <img src={props.book.imageUrl} />
+        <p>{props.book.genre}</p>
+        <p>{props.book.synopsis}</p>
+        <p>Rating: {props.book.ratings}</p>
+        <h3 className="subtitle">Reviews</h3>
+        {!props.book.reviews.length ? (
+          <p>No Reviews</p>
+        ) : (
+          props.book.reviews.map(review => (
+            <div key={review.id} className="review">
+              <p>{review.rating}</p>
+              <p>{review.review}</p>
+            </div>
+          ))
+        )}
+      </div>
+      <div className="column is-one-third">
+        <p>${props.book.price}</p>
+        <form onSubmit={handleClick}>
+          <input
+            className="form-control"
+            type="number"
+            name="quantity"
+            min="0"
+            max="1000"
+          />
+          <button className="button is-danger is-outlined" type="submit">
+            Add To Cart
+          </button>
+        </form>
+        {toCart ? <p>Item added to cart</p> : false}
+      </div>
     </div>
   )
 }
