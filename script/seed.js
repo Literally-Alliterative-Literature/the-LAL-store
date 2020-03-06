@@ -2,7 +2,7 @@
 
 const db = require('../server/db')
 const Faker = require('faker')
-const {User, Book, Order, OrderItem} = require('../server/db/models')
+const {User, Book, Order, OrderItem, Review} = require('../server/db/models')
 
 function getRandomInt(min, max) {
   min = Math.ceil(min)
@@ -103,6 +103,15 @@ async function seed() {
     OrderItem.create({quantity: 10, currentPrice: 10, orderId: 2, bookId: 3}),
     OrderItem.create({quantity: 10, currentPrice: 10, orderId: 3, bookId: 5})
   ])
+
+  for (let i = 0; i < 100; i++) {
+    await Review.create({
+      review: Faker.lorem.paragraph,
+      rating: getRandomInt(1, 6),
+      userId: getRandomInt(1, 102),
+      bookId: getRandomInt(1, 104)
+    })
+  }
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${books.length} books`)
