@@ -19,6 +19,11 @@ function SingleBook(props) {
 
   if (!props.book.reviews) props.book.reviews = []
 
+  const getDateString = date => {
+    let short = date.slice(0, 10)
+    return `${short.slice(5, 7)}/${short.slice(8)}/${short.slice(0, 4)}`
+  }
+
   return (
     <div className="columns has-text-centered">
       <div className="column">
@@ -27,18 +32,35 @@ function SingleBook(props) {
         <img src={props.book.imageUrl} />
         <p>{props.book.genre}</p>
         <p>{props.book.synopsis}</p>
-        <p>Rating: {props.book.ratings}</p>
-        <h3 className="subtitle">Reviews</h3>
-        {!props.book.reviews.length ? (
-          <p>No Reviews</p>
-        ) : (
-          props.book.reviews.map(review => (
-            <div key={review.id} className="review">
-              <p>{review.rating}</p>
-              <p>{review.review}</p>
-            </div>
-          ))
-        )}
+        <p>
+          Rating:
+          {props.book.reviews.length ? (
+            props.book.reviews.reduce(
+              (accum, review) => accum + review.rating,
+              0
+            ) / props.book.reviews.length
+          ) : (
+            <span>No Ratings</span>
+          )}
+        </p>
+        <div className="box has-background-link">
+          <h3 className="subtitle">Reviews</h3>
+          {!props.book.reviews.length ? (
+            <p>No Reviews</p>
+          ) : (
+            props.book.reviews.map(review => {
+              return (
+                <div key={review.id} className="review">
+                  <span className="has-text-centered">
+                    {getDateString(review.createdAt)}
+                  </span>
+                  <span className="has-text-centered">{review.rating}</span>
+                  <p>{review.review}</p>
+                </div>
+              )
+            })
+          )}
+        </div>
       </div>
       <div className="column is-one-third">
         <p>${props.book.price}</p>

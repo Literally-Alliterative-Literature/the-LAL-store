@@ -106,7 +106,7 @@ async function seed() {
 
   for (let i = 0; i < 100; i++) {
     await Review.create({
-      review: Faker.lorem.paragraph,
+      review: Faker.lorem.paragraph(),
       rating: getRandomInt(1, 6),
       userId: getRandomInt(1, 102),
       bookId: getRandomInt(1, 104)
