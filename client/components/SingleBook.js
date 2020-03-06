@@ -17,7 +17,24 @@ function SingleBook(props) {
     props.loadSingleBook(props.match.params.id)
   }, [])
 
+  const turnRatingIntoArr = rating => {
+    let ratingArr = []
+    for (let i = 0; i < rating; i++) {
+      ratingArr.push(i)
+    }
+    return ratingArr
+  }
+
+  let singleBookRating
+
   if (!props.book.reviews) props.book.reviews = []
+  else {
+    singleBookRating =
+      props.book.reviews.reduce((accum, review) => accum + review.rating, 0) /
+      props.book.reviews.length
+    Math.round(singleBookRating)
+    singleBookRating = turnRatingIntoArr(singleBookRating)
+  }
 
   const getDateString = date => {
     let short = date.slice(0, 10)
@@ -35,10 +52,11 @@ function SingleBook(props) {
         <p>
           Rating:
           {props.book.reviews.length ? (
-            props.book.reviews.reduce(
-              (accum, review) => accum + review.rating,
-              0
-            ) / props.book.reviews.length
+            singleBookRating.map(elem => (
+              <span className="icon" key={elem}>
+                <i className="fas fa-star has-text-warning" />
+              </span>
+            ))
           ) : (
             <span>No Ratings</span>
           )}
@@ -52,8 +70,13 @@ function SingleBook(props) {
               return (
                 <div key={review.id} className="review">
                   <span>
-                    {review.user.name} {getDateString(review.createdAt)}{' '}
-                    {review.rating}
+                    {review.user.name} {getDateString(review.createdAt)}
+                    {'   '}
+                    {turnRatingIntoArr(review.rating).map(elem => (
+                      <span className="icon" key={elem}>
+                        <i className="fas fa-star has-text-warning" />
+                      </span>
+                    ))}
                   </span>
                   <p>{review.review}</p>
                 </div>
