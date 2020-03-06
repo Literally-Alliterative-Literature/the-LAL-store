@@ -10,7 +10,7 @@ import {
   SingleBook,
   ShoppingCart,
   Checkout,
-  SingleUser
+  SingleUser,
   AllUsers
 } from './components'
 import {me} from './store'
