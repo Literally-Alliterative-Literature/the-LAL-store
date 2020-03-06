@@ -2,13 +2,10 @@ const router = require('express').Router()
 const {User} = require('../db/models')
 module.exports = router
 
-const checkToken = async (req, res, next) => {
-  if (!req.session.passport) res.sendStatus(403)
-  else {
-    const user = await User.findByPk(req.session.passport.user)
-    if (user.adminAccess) next()
-    else res.sendStatus(403)
-  }
+const checkToken = (req, res, next) => {
+  if (!req.user) res.sendStatus(403)
+  else if (req.user.adminAccess) next()
+  else res.sendStatus(403)
 }
 
 router.get('/', checkToken, async (req, res, next) => {

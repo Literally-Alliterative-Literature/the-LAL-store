@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import {fetchCart, editQuantity, deleteItem} from '../store/shoppingcart'
 import {Link} from 'react-router-dom'
