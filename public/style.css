@@ -52,6 +52,13 @@ $primary-invert: $pink-invert;
   flex-wrap: wrap;
 }
 
+img {
+  margin: 15px;
+  height: 200px;
+  width: 200px;
+  border: solid;
+}
+
 .allBooks {
   display: flex;
   flex-direction: row;
@@ -4845,6 +4852,8 @@ a.tag:hover {
 .title,
 .subtitle {
   word-break: break-word;
+  align-items: center;
+  display: flex;
 }
 .title em,
 .title span,
