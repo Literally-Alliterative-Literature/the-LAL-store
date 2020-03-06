@@ -6,30 +6,57 @@ import {logout} from '../store'
 // import Payment from './payment'
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
-    <h1>The LAL Store</h1>
-    <nav>
+    <nav className="navbar is-fixed-top is-info">
       {isLoggedIn ? (
-        <div className="background-is-primary">
-          {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <Link to="/cart">Cart</Link>
-          <Link to="/books">Browse</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
-        </div>
+        <>
+          <div className="navbar-brand">
+            <span className="navbar-item ">The LAL Store</span>
+          </div>
+          <div className="navbar-menu">
+            {/* The navbar will show these links after you log in */}
+            <Link to="/home" className="navbar-item">
+              Home
+            </Link>
+            <Link to="/cart" className="navbar-item">
+              Cart
+            </Link>
+            <Link to="/books" className="navbar-item">
+              Browse
+            </Link>
+          </div>
+          <div className="navbar-end">
+            <a href="#" className="navbar-item" onClick={handleClick}>
+              Logout
+            </a>
+          </div>
+        </>
       ) : (
-        <div className="background-is-primary">
-          {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-          <Link to="/cart">Cart</Link>
-          <Link to="/books">Browse</Link>
-          {/* <Payment/> */}
-        </div>
+        <>
+          <div className="navbar-brand">
+            <span className="navbar-item">The LAL Store</span>
+          </div>
+          <div className="navbar-menu">
+            {/* The navbar will show these links before you log in */}
+            <Link to="/cart" className="navbar-item">
+              Cart
+            </Link>
+            <Link to="/books" className="navbar-item">
+              Browse
+            </Link>
+            {/* <Payment/> */}
+          </div>
+          <div className="navbar-end">
+            <Link to="/login" className="navbar-item">
+              Login
+            </Link>
+            <Link to="/signup" className="navbar-item">
+              Sign Up
+            </Link>
+          </div>
+        </>
       )}
+      <hr className="navbar-divider" />
     </nav>
-    <hr />
   </div>
 )
 
