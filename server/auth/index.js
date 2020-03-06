@@ -18,7 +18,7 @@ router.post('/login', async (req, res, next) => {
     }
 
     //check for guest cart
-    if (req.session.shoppingCart.length) {
+    if (req.session.shoppingCart) {
       //If the shopping cart has length > 0, move all items to your existing cart and then empty cart.
       let userId = req.session.passport.user
       const order = await Order.findOrCreate({where: {userId, status: 'cart'}})
