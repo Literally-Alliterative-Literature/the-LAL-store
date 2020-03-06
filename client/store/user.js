@@ -32,7 +32,6 @@ export const me = () => async dispatch => {
 
 export const editUser = userInfo => async dispatch => {
   try {
-    console.log('thunk sent request')
     const {data} = await axios.post(`/api/users`, userInfo)
     dispatch(getUser(data))
   } catch (err) {
