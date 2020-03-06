@@ -50,7 +50,6 @@ $primary-invert: $pink-invert;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
 }
 
 .allBooks {
@@ -60,7 +59,6 @@ $primary-invert: $pink-invert;
   flex-grow: 1;
   max-height: 700px;
   max-width: 300px;
-  justify-items: center;
 }
 
 @-webkit-keyframes spinAround {
