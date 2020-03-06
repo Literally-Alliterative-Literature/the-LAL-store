@@ -30,6 +30,15 @@ export const me = () => async dispatch => {
   }
 }
 
+export const editUser = userInfo => async dispatch => {
+  try {
+    const {data} = await axios.post(`/api/users`, userInfo)
+    dispatch(getUser(data))
+  } catch (err) {
+    console.log('Something went wrong in editUser. Err is: ', err)
+  }
+}
+
 export const auth = (
   email,
   password,
