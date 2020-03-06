@@ -46,6 +46,12 @@ $primary-invert: $pink-invert;
 // 4. Import the rest of Bulma
 */
 /*! bulma.io v0.7.2 | MIT License | github.com/jgthms/bulma */
+
+img {
+  max-height: 300px;
+  max-width: 200px;
+}
+
 .allBooksContainer {
   display: flex;
   flex-direction: row;
