@@ -1,5 +1,7 @@
 const router = require('express').Router()
 const User = require('../db/models/users')
+const Order = require('../db/models/orders')
+const OrderItem = require('../db/models/orderItems')
 module.exports = router
 
 router.post('/login', async (req, res, next) => {
@@ -13,6 +15,23 @@ router.post('/login', async (req, res, next) => {
       res.status(401).send('Wrong username and/or password')
     } else {
       req.login(user, err => (err ? next(err) : res.json(user)))
+    }
+
+    //check for guest cart
+    if (req.session.shoppingCart.length) {
+      //If the shopping cart has length > 0, move all items to your existing cart and then empty cart.
+      let userId = req.session.passport.user
+      const order = await Order.findOrCreate({where: {userId, status: 'cart'}})
+      let orderGuestCart = order[0].toJSON()
+      for (let i = 0; i < req.session.shoppingCart.length; i++) {
+        await OrderItem.create({
+          orderId: orderGuestCart.id,
+          bookId: req.session.shoppingCart[i].bookId,
+          currentPrice: req.session.shoppingCart[i].currentPrice,
+          quantity: req.session.shoppingCart[i].quantity
+        })
+      }
+      req.session.shoppingCart = []
     }
   } catch (err) {
     next(err)
