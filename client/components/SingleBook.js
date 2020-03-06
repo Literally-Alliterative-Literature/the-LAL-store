@@ -51,10 +51,10 @@ function SingleBook(props) {
             props.book.reviews.map(review => {
               return (
                 <div key={review.id} className="review">
-                  <span className="has-text-centered">
-                    {getDateString(review.createdAt)}
+                  <span>
+                    {review.user.name} {getDateString(review.createdAt)}{' '}
+                    {review.rating}
                   </span>
-                  <span className="has-text-centered">{review.rating}</span>
                   <p>{review.review}</p>
                 </div>
               )

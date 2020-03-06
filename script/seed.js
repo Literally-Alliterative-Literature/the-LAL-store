@@ -104,7 +104,7 @@ async function seed() {
     OrderItem.create({quantity: 10, currentPrice: 10, orderId: 3, bookId: 5})
   ])
 
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 300; i++) {
     await Review.create({
       review: Faker.lorem.paragraph(),
       rating: getRandomInt(1, 6),
