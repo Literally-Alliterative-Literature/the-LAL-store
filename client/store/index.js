@@ -7,12 +7,14 @@ import allbooks from './allbooks'
 import singleBook from './singleBook'
 import shoppingcart from './shoppingcart'
 import allusers from './allusers'
+import totalpages from './totalPages'
 const reducer = combineReducers({
   user,
   allbooks,
   singleBook,
   shoppingcart,
-  allusers
+  allusers,
+  totalpages
 })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))

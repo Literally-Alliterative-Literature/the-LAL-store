@@ -2,12 +2,32 @@ const router = require('express').Router()
 const {Book, Review, User} = require('../db/models')
 module.exports = router
 
-router.get('/', async (req, res, next) => {
+const limitBooks = [10, 20]
+
+router.get('/10/:pageId', async (req, res, next) => {
   try {
+    const count = await Book.count()
+    console.log('gimme count', count)
     const books = await Book.findAll({
-      attributes: ['title', 'imageUrl', 'price', 'author', 'id']
+      attributes: ['title', 'imageUrl', 'price', 'author', 'id'],
+      limit: limitBooks[0],
+      offset: (req.params.pageId - 1) * limitBooks[0]
     })
-    if (books) res.send(books)
+    if (books) res.send([books, count])
+    else res.sendStatus(500)
+  } catch (err) {
+    next(err)
+  }
+})
+router.get('/20/:pageId', async (req, res, next) => {
+  try {
+    const count = await Book.count()
+    const books = await Book.findAll({
+      attributes: ['title', 'imageUrl', 'price', 'author', 'id'],
+      limit: limitBooks[1],
+      offset: (req.params.pageId - 1) * limitBooks[1]
+    })
+    if (books) res.send([books, count])
     else res.sendStatus(500)
   } catch (err) {
     next(err)
