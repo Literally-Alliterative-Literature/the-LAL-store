@@ -34,6 +34,17 @@ export const fetchBooks = () => {
   }
 }
 
+export const deleteBook = id => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.delete(`/api/books/${id}`)
+      dispatch(getBooks(data))
+    } catch (err) {
+      console.log('Something went wrong inside deleteBook! Err is: ', err)
+    }
+  }
+}
+
 /**
  * REDUCER
  */
