@@ -111,3 +111,37 @@ router.delete('/:itemId', async (req, res, next) => {
     next(err)
   }
 })
+
+router.put('/purchase', async (req, res, next) => {
+  if (!req.user) {
+    //purchase from guest cart and save to database as orderId -1
+    console.log('req.session is: ', req.session)
+    try {
+      req.session.shoppingCart.forEach(async order => {
+        await OrderItem.create({
+          orderId: order.orderId,
+          bookId: order.bookId,
+          currentPrice: order.currentPrice,
+          quantity: order.quantity
+        })
+      })
+      req.session.shoppingCart = []
+      res.sendStatus(200)
+      return
+    } catch (err) {
+      next(err)
+    }
+  }
+
+  //purchase from user cart and change order to 'processed'
+  try {
+    const order = await Order.findOne({
+      where: {userId: req.session.passport.user, status: 'cart'}
+    })
+    order.status = 'processed'
+    order.save()
+    res.sendStatus(200)
+  } catch (err) {
+    next(err)
+  }
+})

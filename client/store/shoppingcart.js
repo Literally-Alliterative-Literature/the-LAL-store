@@ -65,6 +65,18 @@ export const fetchCart = () => {
   }
 }
 
+export const purchaseCart = () => {
+  return async dispatch => {
+    try {
+      console.log('in purchaseCart')
+      await axios.put('/api/cart/purchase')
+      dispatch(getCart([]))
+    } catch (err) {
+      console.log('Something went wrong inside purchaseCart! Err is ', err)
+    }
+  }
+}
+
 export default function(state = defaultCart, action) {
   switch (action.type) {
     case GET_CART:
