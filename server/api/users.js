@@ -42,3 +42,16 @@ router.post('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.delete('/:id', checkToken, async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.id)
+    await user.destroy()
+    const users = await User.findAll({
+      attributes: ['id', 'name', 'email', 'address', 'adminAccess']
+    })
+    res.status(200).send(users)
+  } catch (err) {
+    next(err)
+  }
+})

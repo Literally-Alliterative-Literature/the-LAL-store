@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
-import {fetchUsers} from '../store/allusers'
+import {fetchUsers, deleteUser} from '../store/allusers'
 
 function AllUsers(props) {
   if (!props.users) props.user = []
@@ -10,7 +10,9 @@ function AllUsers(props) {
 
   const handleEdit = event => {}
 
-  const handleDelete = event => {}
+  const handleDelete = id => {
+    props.deleteUser(id)
+  }
 
   return (
     <div>
@@ -41,7 +43,10 @@ function AllUsers(props) {
                       </button>
                     </td>
                     <td>
-                      <button type="button" onClick={handleDelete}>
+                      <button
+                        type="button"
+                        onClick={() => handleDelete(user.id)}
+                      >
                         X
                       </button>
                     </td>
@@ -59,7 +64,8 @@ const mapState = state => ({
   users: state.allusers
 })
 const mapDispatch = dispatch => ({
-  loadUsers: () => dispatch(fetchUsers())
+  loadUsers: () => dispatch(fetchUsers()),
+  deleteUser: id => dispatch(deleteUser(id))
 })
 
 export default connect(mapState, mapDispatch)(AllUsers)

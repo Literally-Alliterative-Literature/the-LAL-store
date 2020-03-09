@@ -31,6 +31,17 @@ export const fetchUsers = () => {
   }
 }
 
+export const deleteUser = id => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.delete(`/api/users/${id}`)
+      dispatch(getUsers(data))
+    } catch (err) {
+      console.log('Something went wrong inside deleteUser! Err is: ', err)
+    }
+  }
+}
+
 /**
  * REDUCER
  */
