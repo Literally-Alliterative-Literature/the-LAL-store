@@ -43,34 +43,58 @@ function SingleBook(props) {
 
   return (
     <div className="columns has-text-centered">
-      <div className="column">
-        <h2 className="title">{props.book.title}</h2>
-        <h3 className="subtitle">{props.book.author}</h3>
-        <img src={props.book.imageUrl} />
-        <p>{props.book.genre}</p>
-        <p>{props.book.synopsis}</p>
-        <p>
-          Rating:
-          {props.book.reviews.length ? (
-            singleBookRating.map(elem => (
-              <span className="icon" key={elem}>
-                <i className="fas fa-star has-text-warning" />
-              </span>
-            ))
-          ) : (
-            <span>No Ratings</span>
-          )}
-        </p>
+      <div className="column" />
+      <div className="card column is-half">
+        <div className="columns">
+          <div className="column is-half">
+            <h2 className="title">{props.book.title}</h2>
+            <h3 className="subtitle">by: {props.book.author}</h3>
+            <img src={props.book.imageUrl} />
+          </div>
+          <div className="column is-half" id="content-column">
+            <p>{props.book.genre}</p>
+            <p>{props.book.synopsis}</p>
+            <p>
+              Rating:
+              {props.book.reviews.length ? (
+                singleBookRating.map(elem => (
+                  <span className="icon" key={elem}>
+                    <i className="fas fa-star has-text-warning" />
+                  </span>
+                ))
+              ) : (
+                <span>No Ratings</span>
+              )}
+            </p>
+            <p>${props.book.price}</p>
+            <form onSubmit={handleClick}>
+              <label htmlFor="quantity">Number of copies (optional):</label>
+              <input
+                className="form-control"
+                type="number"
+                name="quantity"
+                min="0"
+                max="1000"
+              />
+              <br />
+              <button className="button is-danger is-outlined" type="submit">
+                Add To Cart
+              </button>
+            </form>
+            {toCart ? <p>Item added to cart</p> : false}
+          </div>
+        </div>
         <div className="box has-background-link">
-          <h3 className="subtitle">Reviews</h3>
+          <h3 className="subtitle has-text-white">Reviews</h3>
           {!props.book.reviews.length ? (
             <p>No Reviews</p>
           ) : (
             props.book.reviews.map(review => {
               return (
-                <div key={review.id} className="review">
+                <div key={review.id} className="review has-text-white">
                   <span>
-                    {review.user.name} {getDateString(review.createdAt)}
+                    <div className="bold">{review.user.name}</div>{' '}
+                    {getDateString(review.createdAt)}
                     {'   '}
                     {turnRatingIntoArr(review.rating).map(elem => (
                       <span className="icon" key={elem}>
@@ -85,22 +109,7 @@ function SingleBook(props) {
           )}
         </div>
       </div>
-      <div className="column is-one-third">
-        <p>${props.book.price}</p>
-        <form onSubmit={handleClick}>
-          <input
-            className="form-control"
-            type="number"
-            name="quantity"
-            min="0"
-            max="1000"
-          />
-          <button className="button is-danger is-outlined" type="submit">
-            Add To Cart
-          </button>
-        </form>
-        {toCart ? <p>Item added to cart</p> : false}
-      </div>
+      <div className="column" />
     </div>
   )
 }
