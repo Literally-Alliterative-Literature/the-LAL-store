@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 
 function Checkout(props) {
   if (!props.cart) props.cart = []
@@ -42,6 +43,7 @@ function Checkout(props) {
         <input name="child" />
         <p>Billing Information Placeholder</p>
       </form>
+      <Link to="/confirmation">Next Step</Link>
     </div>
   )
 }

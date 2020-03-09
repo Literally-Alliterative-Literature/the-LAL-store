@@ -47,6 +47,25 @@ $primary-invert: $pink-invert;
 */
 /*! bulma.io v0.7.2 | MIT License | github.com/jgthms/bulma */
 
+.review {
+  color: white;
+  margin-top: 2%;
+}
+
+#content-column {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.allBookSingle:hover {
+  background-color: black;
+  text-decoration: underline;
+}
+
 img {
   max-height: 300px;
   max-width: 200px;
@@ -1656,7 +1675,7 @@ a.has-text-danger:focus {
 }
 
 .box {
-  background-color: white;
+  background-color: whitesmoke;
   border-radius: 6px;
   box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
   color: #4a4a4a;
