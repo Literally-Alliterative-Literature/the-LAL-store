@@ -24,3 +24,24 @@ router.get('/:id', async (req, res, next) => {
     next(err)
   }
 })
+
+router.post('/:id', async (req, res, next) => {
+  try {
+    if (req.user) {
+      await Review.create({
+        review: req.body.review,
+        rating: req.body.rating,
+        bookId: req.params.id,
+        userId: req.session.passport.user
+      })
+      const book = await Book.findByPk(req.params.id, {
+        include: [
+          {model: Review, include: [{model: User, attributes: ['name']}]}
+        ]
+      })
+      res.status(201).send(book)
+    } else res.sendStatus(403)
+  } catch (err) {
+    next(err)
+  }
+})

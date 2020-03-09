@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {connect} from 'react-redux'
-import {fetchSingleBook} from '../store/singleBook'
+import {fetchSingleBook, addReview} from '../store/singleBook'
 import {addToCart} from '../store/shoppingcart'
 
 function SingleBook(props) {
@@ -10,6 +10,15 @@ function SingleBook(props) {
     setToCart(true)
     if (!event.target.quantity.value) event.target.quantity.value = 1
     props.handleAddToCart(props.book, event.target.quantity.value)
+  }
+
+  const handleSubmit = event => {
+    event.preventDefault()
+    props.handleAddReview(
+      props.book.id,
+      event.target.review.value,
+      event.target.rating.value
+    )
   }
 
   if (!props.book) props.book = []
@@ -84,6 +93,26 @@ function SingleBook(props) {
             })
           )}
         </div>
+        <div>
+          <h4>Add A Review:</h4>
+          <form onSubmit={handleSubmit}>
+            <label>Review:</label>
+            <textarea
+              className="form-control textarea is-success"
+              name="review"
+              required="required"
+            />
+            <label>
+              Rating: 1
+              <input type="radio" name="rating" value="1" />
+              <input type="radio" name="rating" value="2" />
+              <input type="radio" name="rating" value="3" />
+              <input type="radio" name="rating" value="4" />
+              <input type="radio" name="rating" value="5" />5
+            </label>
+            <button type="submit">Submit</button>
+          </form>
+        </div>
       </div>
       <div className="column is-one-third">
         <p>${props.book.price}</p>
@@ -111,7 +140,9 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
   loadSingleBook: id => dispatch(fetchSingleBook(id)),
-  handleAddToCart: (book, quantity) => dispatch(addToCart(book, quantity))
+  handleAddToCart: (book, quantity) => dispatch(addToCart(book, quantity)),
+  handleAddReview: (id, review, rating) =>
+    dispatch(addReview(id, review, rating))
 })
 
 export default connect(mapState, mapDispatch)(SingleBook)
