@@ -35,6 +35,22 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   //check if user exists. If not, add item to session guest shoppingCart instead
   if (!req.user) {
+    // check if book order already exists in shopping cart
+    let checkBook = false
+    for (let i = 0; i < req.session.shoppingCart.length; i++) {
+      if (req.session.shoppingCart[i].bookId === req.body.book.id) {
+        //if book does exist, increase quantity
+        checkBook = true
+        req.session.shoppingCart[i].quantity =
+          req.session.shoppingCart[i].quantity * 1 + req.body.quantity * 1
+      }
+    }
+    if (checkBook === true) {
+      //if the book was already in the cart and the quantity was increased, send back shopping cart and end function
+      res.status(200).json(req.session.shoppingCart)
+      return
+    }
+
     //need to attach the book to this shoppingObj in order to mimic the return from our actual shopping cart.
     const book = await Book.findByPk(req.body.book.id)
 
@@ -57,12 +73,28 @@ router.post('/', async (req, res, next) => {
     let userId = req.session.passport.user
     const order = await Order.findOrCreate({where: {userId, status: 'cart'}})
     let orderToJason = order[0].toJSON()
-    await OrderItem.create({
-      orderId: orderToJason.id,
-      bookId: req.body.book.id,
-      currentPrice: req.body.book.price,
-      quantity: req.body.quantity
+    //check if the book already exists in the order
+    const amount = await OrderItem.count({
+      where: {orderId: orderToJason.id, bookId: req.body.book.id}
     })
+
+    //if it does exist in the current order, increase its quantity
+    if (amount !== 0) {
+      const existingOrderItem = await OrderItem.findOne({
+        where: {orderId: orderToJason.id, bookId: req.body.book.id}
+      })
+      existingOrderItem.quantity =
+        existingOrderItem.quantity * 1 + req.body.quantity * 1
+      existingOrderItem.save()
+    } else {
+      //if it does not exist in the current order, create it
+      await OrderItem.create({
+        orderId: orderToJason.id,
+        bookId: req.body.book.id,
+        currentPrice: req.body.book.price,
+        quantity: req.body.quantity
+      })
+    }
     let kylieOrderItem = await OrderItem.findNameByOrderId(orderToJason.id)
     res.status(200).json(kylieOrderItem)
   } catch (err) {
