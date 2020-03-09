@@ -16,12 +16,17 @@ function Confirmation(props) {
   }
   return (
     <div>
-      <p>Are you sure you want to make this purchase?</p>
-      <p>Total is: ${total}</p>
-      <button type="button" onClick={handlePurchase}>
-        Confirm my purchase
-      </button>
-      {purchased ? <h1>Thank you for your purchase.</h1> : false}
+      {purchased ? (
+        <h1>Thank you for your purchase.</h1>
+      ) : (
+        <div>
+          <p>Are you sure you want to make this purchase?</p>
+          <p>Total is: ${total}</p>
+          <button type="button" onClick={handlePurchase}>
+            Confirm my purchase
+          </button>
+        </div>
+      )}
     </div>
   )
 }
