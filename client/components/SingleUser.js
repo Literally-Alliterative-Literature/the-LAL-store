@@ -9,7 +9,6 @@ function SingleUser(props) {
   const [editedUser, setEdited] = useState(false)
 
   useEffect(() => {
-    console.log('props is: ', props)
     props.loadOrderHistory()
   }, [])
 
