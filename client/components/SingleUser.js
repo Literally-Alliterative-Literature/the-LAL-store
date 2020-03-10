@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 
 function SingleUser(props) {
   return (
-    <div>
+    <div className="card">
       <h2>Welcome, {props.user.name}</h2>
       <h4>Email: {props.user.email}</h4>
       <h4>Billing Address: {props.user.address}</h4>

@@ -1,6 +1,9 @@
 const router = require('express').Router()
 const {Book, Review, User} = require('../db/models')
+const Sequelize = require('sequelize')
+
 module.exports = router
+
 
 const checkToken = (req, res, next) => {
   if (!req.user) res.sendStatus(403)
@@ -8,32 +11,16 @@ const checkToken = (req, res, next) => {
   else res.sendStatus(403)
 }
 
-const limitBooks = [10, 20]
-
-router.get('/10/:pageId', async (req, res, next) => {
+router.get('/:limit/:pageId/:search(*)', async (req, res, next) => {
   try {
     const count = await Book.count()
     const books = await Book.findAll({
       attributes: ['title', 'imageUrl', 'price', 'author', 'id'],
-      limit: limitBooks[0],
-      offset: (req.params.pageId - 1) * limitBooks[0]
+    limit: parseInt(req.params.limit),
+      where: {title: {[Sequelize.Op.iLike]: `%${req.params.search}%`}},
+      offset: (req.params.pageId - 1) * parseInt(req.params.limit)
     })
-    if (books) res.send([books, count])
-    else res.sendStatus(500)
-  } catch (err) {
-    next(err)
-  }
-})
-router.get('/20/:pageId', async (req, res, next) => {
-  try {
-    const count = await Book.count()
-    const books = await Book.findAll({
-      attributes: ['title', 'imageUrl', 'price', 'author', 'id'],
-      limit: limitBooks[1],
-      offset: (req.params.pageId - 1) * limitBooks[1]
-    })
-    if (books) res.send([books, count])
-    else res.sendStatus(500)
+    res.status(200).send(books)
   } catch (err) {
     next(err)
   }
@@ -51,13 +38,13 @@ router.get('/admin', checkToken, async (req, res, next) => {
         'quantity',
         'genre'
       ]
-    })
+      })
     res.status(200).send(books)
   } catch (err) {
     next(err)
   }
 })
-
+      
 router.get('/:id', async (req, res, next) => {
   try {
     const book = await Book.findByPk(req.params.id, {

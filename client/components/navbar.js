@@ -6,7 +6,7 @@ import {logout} from '../store'
 // import Payment from './payment'
 const Navbar = ({handleClick, isLoggedIn, adminAccess}) => (
   <div>
-    <nav className="navbar is-fixed-top is-info">
+    <nav className="navbar is-fixed-top">
       {isLoggedIn ? (
         <>
           <div className="navbar-brand">
@@ -35,7 +35,7 @@ const Navbar = ({handleClick, isLoggedIn, adminAccess}) => (
             <Link to="/cart" className="navbar-item">
               Cart
             </Link>
-            <Link to="/books" className="navbar-item">
+            <Link to="/books/" className="navbar-item">
               Browse
             </Link>
           </div>

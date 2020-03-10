@@ -5,6 +5,7 @@ import {fetchSingleBook, addReview} from '../store/singleBook'
 import {addToCart} from '../store/shoppingcart'
 
 function SingleBook(props) {
+  console.log('props.user is: ', props.user)
   const [toCart, setToCart] = useState(false)
   const handleClick = event => {
     event.preventDefault()
@@ -57,8 +58,12 @@ function SingleBook(props) {
       <div className="card column is-half">
         <div className="columns">
           <div className="column is-half">
-            <h2 className="title">{props.book.title}</h2>
-            <h3 className="subtitle">by: {props.book.author}</h3>
+            <h2 className="title" id="title1">
+              {props.book.title}
+            </h2>
+            <h3 className="subtitle" id="title2">
+              by: {props.book.author}
+            </h3>
             <img src={props.book.imageUrl} />
           </div>
           <div className="column is-half" id="content-column">
@@ -87,7 +92,7 @@ function SingleBook(props) {
                 max="1000"
               />
               <br />
-              <button className="button is-danger is-outlined" type="submit">
+              <button className="button is-success is-outlined" type="submit">
                 Add To Cart
               </button>
             </form>
@@ -103,14 +108,14 @@ function SingleBook(props) {
             </div>
           </div>
         </div>
-        <div className="box has-background-link">
-          <h3 className="subtitle has-text-white">Reviews</h3>
+        <div className="box">
+          <h3 className="subtitle">Reviews</h3>
           {!props.book.reviews.length ? (
             <p>No Reviews</p>
           ) : (
             props.book.reviews.map(review => {
               return (
-                <div key={review.id} className="review has-text-white">
+                <div key={review.id} className="review">
                   <span>
                     <div className="bold">{review.user.name}</div>{' '}
                     {getDateString(review.createdAt)}
@@ -167,7 +172,7 @@ function SingleBook(props) {
 
 const mapState = state => ({
   book: state.singleBook,
-  adminAccess: state.user.adminAccess
+  user: state.user
 })
 
 const mapDispatch = dispatch => ({

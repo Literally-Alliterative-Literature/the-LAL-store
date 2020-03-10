@@ -4,6 +4,12 @@ import {fetchCart, editQuantity, deleteItem} from '../store/shoppingcart'
 import {Link} from 'react-router-dom'
 
 function ShoppingCart(props) {
+  let total = 0
+  if (props.cart.length) {
+    props.cart.map(item => {
+      total += parseInt(item.book.price, 10) * item.quantity
+    })
+  }
   const handleQuantityClick = (event, itemId) => {
     event.preventDefault()
     if (!event.target.quantity.value) return
@@ -22,14 +28,13 @@ function ShoppingCart(props) {
         {props.cart.length ? (
           props.cart.map(item => {
             return (
-              <li
-                className="tile is-parent is-9 box has-background-primary"
-                key={item.id}
-              >
+              <li className="tile is-parent is-9 box" key={item.id}>
                 <div className="tile is-child has-text-centered">
                   <h3 className="subtitle">Title: {item.book.title}</h3>
                   <p className="subtitle">Author: {item.book.author}</p>
-                  <h5 className="content">${item.book.price}</h5>
+                  <h5 className="content">
+                    Price per item: ${item.book.price}
+                  </h5>
                 </div>
                 <div className="tile is-child has-text-centered">
                   <p className="content">quantity: {item.quantity}</p>
@@ -51,6 +56,7 @@ function ShoppingCart(props) {
                       Change Quantity
                     </button>
                   </form>
+                  <p>Total price: ${item.quantity * item.book.price}</p>
                 </div>
                 <div className="tile is-child">
                   <img src={item.book.imageUrl} />
@@ -69,7 +75,8 @@ function ShoppingCart(props) {
           <h2>No items in cart</h2>
         )}
       </ol>
-      <div className="box has-background-warning">
+      <div className="card marginTop">
+        <h3 className="title">Your complete total is: {total}</h3>
         <Link to="/checkout">Checkout</Link>
       </div>
     </div>
