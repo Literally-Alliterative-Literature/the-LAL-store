@@ -4,6 +4,12 @@ const Sequelize = require('sequelize')
 
 module.exports = router
 
+const checkToken = (req, res, next) => {
+  if (!req.user) res.sendStatus(403)
+  else if (req.user.adminAccess) next()
+  else res.sendStatus(403)
+}
+
 router.get('/:limit/:pageId/:search(*)', async (req, res, next) => {
   try {
     const count = await Book.count()
@@ -52,15 +58,51 @@ router.post('/:id', async (req, res, next) => {
   }
 })
 
-router.get('/search/:searchParam', async (req, res, next) => {
+router.post('/', checkToken, async (req, res, next) => {
   try {
+    await Book.create(req.body)
+    res.sendStatus(201)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/:id', checkToken, async (req, res, next) => {
+  try {
+    const book = await Book.findByPk(req.params.id)
+
+    if (req.body.title) book.title = req.body.title
+    if (req.body.author) book.author = req.body.author
+    if (req.body.imageUrl) book.imageUrl = req.body.imageUrl
+    if (req.body.price) book.price = req.body.price
+    if (req.body.quantity) book.quantity = req.body.quantity
+    if (req.body.synopsis) book.synopsis = req.body.synopsis
+    if (req.body.genre) book.genre = req.body.genre
+
+    await book.save()
+
+    res.sendStatus(200)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.delete('/:id', checkToken, async (req, res, next) => {
+  try {
+    const book = await Book.findByPk(req.params.id)
+    await book.destroy()
     const books = await Book.findAll({
-      where: {
-        search: req.params.title
-      }
+      attributes: [
+        'title',
+        'imageUrl',
+        'price',
+        'author',
+        'id',
+        'quantity',
+        'genre'
+      ]
     })
-    console.log(req.params)
-    res.json(books)
+    res.status(200).send(books)
   } catch (err) {
     next(err)
   }

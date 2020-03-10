@@ -39,6 +39,37 @@ export const fetchBooks = (page, limit, search) => {
   }
 }
 
+export const addBook = book => {
+  return async () => {
+    try {
+      await axios.post('/api/books', book)
+    } catch (err) {
+      console.log('Something went wrong inside addBook! Err is: ', err)
+    }
+  }
+}
+
+export const editBook = (id, book) => {
+  return async () => {
+    try {
+      await axios.put(`/api/books/${id}`, book)
+    } catch (err) {
+      console.log('Something went wrong inside editBook! Err is: ', err)
+    }
+  }
+}
+
+export const deleteBook = id => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.delete(`/api/books/${id}`)
+      dispatch(getBooks(data))
+    } catch (err) {
+      console.log('Something went wrong inside deleteBook! Err is: ', err)
+    }
+  }
+}
+
 /**
  * REDUCER
  */
