@@ -1,23 +1,14 @@
 import React, {useState} from 'react'
 import {connect} from 'react-redux'
-import {addBook} from '../store/allbooks'
+import {editBook} from '../store/allbooks'
 
-function AddBook(props) {
-  const [bookAdded, setAdded] = useState(false)
+function EditBook(props) {
+  const [bookEdited, setEdited] = useState(false)
 
   const handleSubmit = event => {
     event.preventDefault()
-    const book = {
-      title: event.target.title.value,
-      author: event.target.author.value,
-      imageUrl: event.target.imageUrl.value,
-      price: event.target.price.value,
-      quantity: event.target.quantity.value,
-      synopsis: event.target.synopsis.value,
-      genre: event.target.genre.value
-    }
-    props.submitBook(book)
-    setAdded(true)
+    props.editBook()
+    setEdited(true)
   }
 
   return (
@@ -79,11 +70,11 @@ function AddBook(props) {
             Submit
           </button>
         </div>
-        {bookAdded ? (
+        {bookEdited ? (
           <>
-            <h3>Book Added!</h3>
+            <h3>Book Edited!</h3>
             <button type="button">
-              <a href="/addBook">Add Another Book</a>
+              <a href="/editBook">Edit Another Book</a>
             </button>
           </>
         ) : (
@@ -95,7 +86,7 @@ function AddBook(props) {
 }
 
 const mapDispatch = dispatch => ({
-  submitBook: book => dispatch(addBook(book))
+  editBook: book => dispatch(editBook(book))
 })
 
-export default connect(null, mapDispatch)(AddBook)
+export default connect(null, mapDispatch)(EditBook)

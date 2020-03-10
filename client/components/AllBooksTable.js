@@ -33,33 +33,34 @@ function AllBooksTable(props) {
             <th>Edit</th>
             <th>Delete</th>
           </tr>
-          {props.books.length
-            ? props.books.map(book => {
-                return (
-                  <tr key={book.id}>
-                    <td>{book.id}</td>
-                    <td>{book.title}</td>
-                    <td>{book.author}</td>
-                    <td>{book.genre}</td>
-                    <td>{book.price}</td>
-                    <td>{book.quantity}</td>
-                    <td>
-                      <button type="button" onClick={handleEdit}>
-                        Edit
-                      </button>
-                    </td>
-                    <td>
-                      <button
-                        type="button"
-                        onClick={() => handleDelete(book.id)}
-                      >
-                        X
-                      </button>
-                    </td>
-                  </tr>
-                )
-              })
-            : false}
+          {props.books.length ? (
+            props.books.map(book => {
+              return (
+                <tr key={book.id}>
+                  <td>{book.id}</td>
+                  <td>{book.title}</td>
+                  <td>{book.author}</td>
+                  <td>{book.genre}</td>
+                  <td>{book.price}</td>
+                  <td>{book.quantity}</td>
+                  <td>
+                    <button type="button" onClick={handleEdit}>
+                      Edit
+                    </button>
+                  </td>
+                  <td>
+                    <button type="button" onClick={() => handleDelete(book.id)}>
+                      X
+                    </button>
+                  </td>
+                </tr>
+              )
+            })
+          ) : (
+            <tr>
+              <td>Loading...</td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>

@@ -28,32 +28,33 @@ function AllUsers(props) {
             <th>Edit</th>
             <th>Delete</th>
           </tr>
-          {props.users.length
-            ? props.users.map(user => {
-                return (
-                  <tr key={user.id}>
-                    <td>{user.id}</td>
-                    <td>{user.name}</td>
-                    <td>{user.email}</td>
-                    <td>{user.address}</td>
-                    {user.adminAccess ? <td>yes</td> : <td>no</td>}
-                    <td>
-                      <button type="button" onClick={handleEdit}>
-                        Edit
-                      </button>
-                    </td>
-                    <td>
-                      <button
-                        type="button"
-                        onClick={() => handleDelete(user.id)}
-                      >
-                        X
-                      </button>
-                    </td>
-                  </tr>
-                )
-              })
-            : false}
+          {props.users.length ? (
+            props.users.map(user => {
+              return (
+                <tr key={user.id}>
+                  <td>{user.id}</td>
+                  <td>{user.name}</td>
+                  <td>{user.email}</td>
+                  <td>{user.address}</td>
+                  {user.adminAccess ? <td>yes</td> : <td>no</td>}
+                  <td>
+                    <button type="button" onClick={handleEdit}>
+                      Edit
+                    </button>
+                  </td>
+                  <td>
+                    <button type="button" onClick={() => handleDelete(user.id)}>
+                      X
+                    </button>
+                  </td>
+                </tr>
+              )
+            })
+          ) : (
+            <tr>
+              <td>Loading...</td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>
