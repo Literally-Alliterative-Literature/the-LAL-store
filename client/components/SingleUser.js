@@ -1,8 +1,15 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import {fetchOrderHistory} from '../store/orderHistory'
+
 
 function SingleUser(props) {
+
+  useEffect(() => {
+    props.loadOrderHistory()
+  }, [])
+
   return (
     <div className="card">
       <h2>Welcome, {props.user.name}</h2>
@@ -17,11 +24,63 @@ function SingleUser(props) {
         <Link to={`/editUser/${props.user.id}`}>Edit my Information</Link>
       </button>
     </div>
+
+
+<div className="card column is-half">
+        <h2 className="title">Order History</h2>
+        {props.orderHistory.length ? (
+          props.orderHistory.map(order => {
+            return (
+              <ol className="content" key={order.id}>
+                <li className="marginLeft">
+                  Order {order.id} from {parseOrderUpdate(order.updatedAt)}:
+                  <ul>
+                    {order.orderItems.map(orderItem => {
+                      return (
+                        <li
+                          key={`${orderItem.book.title}OI${orderItem.book.id}`}
+                        >
+                          <h4>Title: {orderItem.book.title}</h4>
+                          <h4>Amount Purchased: {orderItem.quantity}</h4>
+                          <h4>Price per Item: {orderItem.currentPrice}</h4>
+                          <h4>
+                            Total for this book:{' '}
+                            {orderItem.currentPrice * 1 +
+                              orderItem.quantity * 1}
+                          </h4>
+                          <br />
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </li>
+              </ol>
+            )
+          })
+        ) : (
+          <p>
+            You have no history of purchased items! You need to be logged in and
+            have a purchase history to see this feature!
+          </p>
+        )}
+      </div>
   )
 }
 
 const mapState = state => ({
   user: state.user
+  orderHistory: state.orderHistory
 })
 
-export default connect(mapState)(SingleUser)
+const mapDispatch = dispatch => ({
+  loadOrderHistory: () => dispatch(fetchOrderHistory())
+})
+
+export default connect(mapState, mapDispatch)(SingleUser)
+
+const parseOrderUpdate = dateString => {
+  let resultArr = dateString.split('-')
+  let secondResult = resultArr[2].split('T')
+  const resultString = resultArr[0] + '-' + resultArr[1] + '-' + secondResult[0]
+  return resultString
+}

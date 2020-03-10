@@ -1,5 +1,7 @@
 const router = require('express').Router()
 const {Book, Order, OrderItem} = require('../db/models')
+const {Op} = require('sequelize')
+
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -27,6 +29,32 @@ router.get('/', async (req, res, next) => {
       jsonArray.push(kylieOrderItem[i].toJSON())
     }
     res.status(200).json(jsonArray)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/orderhistory', async (req, res, next) => {
+  if (!req.user) {
+    //if you're not a user, nothing here for you baby
+    res.sendStatus(403)
+    return
+  }
+  try {
+    const orderCount = await Order.findAll({
+      where: {
+        userId: req.user.id,
+        [Op.or]: [{status: 'processed'}, {status: 'purchased'}]
+      },
+      include: [
+        {
+          model: OrderItem,
+          include: [{model: Book, attributes: ['title', 'author', 'id']}]
+        }
+      ]
+    })
+    res.status(200).json(orderCount)
+    //check how many orders that were processed or purchased for that user
   } catch (err) {
     next(err)
   }
