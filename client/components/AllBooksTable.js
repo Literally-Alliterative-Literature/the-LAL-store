@@ -14,7 +14,7 @@ function AllBooksTable(props) {
   }
 
   return (
-    <div>
+    <div className="is-marginless">
       <h2 className="title">All Books</h2>
       <button type="button" className="button is-primary">
         <Link to="/addBook">Add Book</Link>

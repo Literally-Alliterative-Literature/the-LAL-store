@@ -21,7 +21,7 @@ function SingleUser(props) {
   }
 
   return (
-    <div>
+    <div className="card">
       <h2>Welcome, {props.user.name}</h2>
       <h4>Email: {props.user.email}</h4>
       <h4>Billing Address: {props.user.address}</h4>
@@ -38,7 +38,6 @@ function SingleUser(props) {
         I want to edit my information
       </button>
       {editForm ? (
-
         <>
           <form onSubmit={handleSubmit}>
             {props.adminAccess ? (

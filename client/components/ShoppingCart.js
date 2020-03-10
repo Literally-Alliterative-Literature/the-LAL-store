@@ -75,7 +75,7 @@ function ShoppingCart(props) {
           <h2>No items in cart</h2>
         )}
       </ol>
-      <div className="card">
+      <div className="card marginTop">
         <h3 className="title">Your complete total is: {total}</h3>
         <Link to="/checkout">Checkout</Link>
       </div>
