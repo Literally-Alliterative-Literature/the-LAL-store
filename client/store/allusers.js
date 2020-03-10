@@ -51,7 +51,6 @@ export default function(state = defaultUsers, action) {
       return action.users
     case REMOVE_USER:
       return []
-
     default:
       return state
   }

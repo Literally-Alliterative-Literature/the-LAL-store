@@ -18,16 +18,21 @@ const getBooks = books => ({
   type: GET_BOOKS,
   books
 })
-
+const pageCount = (bookNumber, limit) => ({
+  type: 'GET_COUNT',
+  bookNumber,
+  limit
+})
 /**
  * THUNK CREATORS
  */
 
-export const fetchBooks = () => {
+export const fetchBooks = (page, limit) => {
   return async dispatch => {
     try {
-      const {data} = await axios.get('/api/books')
-      dispatch(getBooks(data))
+      const {data} = await axios.get(`/api/books/${limit}/${page}`)
+      dispatch(getBooks(data[0]))
+      dispatch(pageCount(data[1], limit))
     } catch (err) {
       console.log('Something went wrong inside fetchBooks! Err is: ', err)
     }
