@@ -198,6 +198,10 @@ img {
   max-width: 300px;
 }
 
+.marginLeft {
+  margin-left: 4%;
+}
+
 @-webkit-keyframes spinAround {
   from {
     -webkit-transform: rotate(0deg);

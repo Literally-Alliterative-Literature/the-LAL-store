@@ -4,7 +4,6 @@ import {fetchSingleBook, addReview} from '../store/singleBook'
 import {addToCart} from '../store/shoppingcart'
 
 function SingleBook(props) {
-  console.log('props.user is: ', props.user)
   const [toCart, setToCart] = useState(false)
   const handleClick = event => {
     event.preventDefault()

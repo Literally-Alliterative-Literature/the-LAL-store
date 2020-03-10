@@ -8,13 +8,16 @@ import singleBook from './singleBook'
 import shoppingcart from './shoppingcart'
 import allusers from './allusers'
 import totalpages from './totalPages'
+import orderHistory from './orderHistory'
+
 const reducer = combineReducers({
   user,
   allbooks,
   singleBook,
   shoppingcart,
   allusers,
-  totalpages
+  totalpages,
+  orderHistory
 })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
