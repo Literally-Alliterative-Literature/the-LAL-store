@@ -36,10 +36,12 @@ function ShoppingCart(props) {
                     Price per item: ${item.book.price}
                   </h5>
                 </div>
-                <div className="tile is-child has-text-centered">
-                  <p className="content">quantity: {item.quantity}</p>
+                <div className="second-part">
+                  <p className="content-second-part">
+                    quantity: {item.quantity}
+                  </p>
                   <form
-                    className="content"
+                    className="content-second-part"
                     onSubmit={event => handleQuantityClick(event, item.id)}
                   >
                     <input
@@ -49,10 +51,7 @@ function ShoppingCart(props) {
                       min="1"
                       max="1000"
                     />
-                    <button
-                      className="button is-warning is-inverted"
-                      type="submit"
-                    >
+                    <button className="change-quantity" type="submit">
                       Change Quantity
                     </button>
                   </form>
@@ -62,23 +61,36 @@ function ShoppingCart(props) {
                   <img src={item.book.imageUrl} />
                   <button
                     type="button"
-                    className="delete is-medium"
+                    className="remove-from-cart"
                     onClick={() => handleDelete(item.id)}
                   >
-                    {/* Remove From Cart */}
+                    Remove From Cart
                   </button>
                 </div>
               </li>
             )
           })
         ) : (
-          <h2>No items in cart</h2>
+          <div className="empty-cart">
+            <h2>No items in the cart</h2>
+            <h2>
+              <Link to="/books">Check out our goods here!</Link>
+            </h2>
+          </div>
         )}
       </ol>
-      <div className="card">
-        <h3 className="title">Your complete total is: {total}</h3>
-        <Link to="/checkout">Checkout</Link>
-      </div>
+      {total ? (
+        <div className="titleCart">
+          <h3 className="titleCart-content">
+            Your complete total is: ${total}
+          </h3>
+          <button type="button" className="checkout-button">
+            <Link to="/checkout">Checkout</Link>
+          </button>
+        </div>
+      ) : (
+        false
+      )}
     </div>
   )
 }
