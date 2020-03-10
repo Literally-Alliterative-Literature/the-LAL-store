@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 import {fetchUsers, deleteUser} from '../store/allusers'
 
 function AllUsers(props) {
@@ -7,8 +8,6 @@ function AllUsers(props) {
   useEffect(() => {
     props.loadUsers()
   }, [])
-
-  const handleEdit = event => {}
 
   const handleDelete = id => {
     props.deleteUser(id)
@@ -38,8 +37,8 @@ function AllUsers(props) {
                   <td>{user.address}</td>
                   {user.adminAccess ? <td>yes</td> : <td>no</td>}
                   <td>
-                    <button type="button" onClick={handleEdit}>
-                      Edit
+                    <button type="button">
+                      <Link to="/user">Edit</Link>
                     </button>
                   </td>
                   <td>
