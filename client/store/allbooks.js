@@ -5,7 +5,6 @@ import history from '../history'
  * ACTION TYPES
  */
 const GET_BOOKS = 'GET_BOOKS'
-
 /**
  * INITIAL STATE
  */
@@ -23,16 +22,17 @@ const pageCount = (bookNumber, limit) => ({
   bookNumber,
   limit
 })
+
 /**
  * THUNK CREATORS
  */
 
-export const fetchBooks = (page, limit) => {
+export const fetchBooks = (page, limit, search) => {
   return async dispatch => {
     try {
-      const {data} = await axios.get(`/api/books/${limit}/${page}`)
+      const {data} = await axios.get(`/api/books/${limit}/${page}/${search}`)
       dispatch(getBooks(data[0]))
-      dispatch(pageCount(data[1], limit))
+      dispatch(pageCount(data[1], limit, search))
     } catch (err) {
       console.log('Something went wrong inside fetchBooks! Err is: ', err)
     }
