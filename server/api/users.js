@@ -14,7 +14,7 @@ router.get('/', checkToken, async (req, res, next) => {
       // explicitly select only the id and email fields - even though
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
-      attributes: ['id', 'email']
+      attributes: ['id', 'name', 'email', 'address', 'adminAccess']
     })
     res.json(users)
   } catch (err) {
@@ -22,22 +22,43 @@ router.get('/', checkToken, async (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
+router.put('/', async (req, res, next) => {
   if (!req.user) {
     //If you are not a logged in user, get the heck outta here.
-    return
+    res.sendStatus(403)
   }
   try {
-    const userId = req.session.passport.user
+    let userId
+    if (req.body.userId) {
+      if (req.user.adminAccess) {
+        userId = req.body.userId
+      } else res.sendStatus(403)
+    } else {
+      userId = req.session.passport.user
+    }
+
     const user = await User.findByPk(userId)
-    user.name = req.body.name
-    user.email = req.body.email
+    if (req.body.name) user.name = req.body.name
+    if (req.body.email) user.email = req.body.email
     if (req.body.password) {
       user.password = req.body.password
     }
-    user.address = req.body.address
-    user.save()
+    if (req.body.address) user.address = req.body.address
+    await user.save()
     res.status(200).json(user)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.delete('/:id', checkToken, async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.id)
+    await user.destroy()
+    const users = await User.findAll({
+      attributes: ['id', 'name', 'email', 'address', 'adminAccess']
+    })
+    res.status(200).send(users)
   } catch (err) {
     next(err)
   }
