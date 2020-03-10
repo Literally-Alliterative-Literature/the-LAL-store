@@ -4,6 +4,7 @@ const Sequelize = require('sequelize')
 
 module.exports = router
 
+
 const checkToken = (req, res, next) => {
   if (!req.user) res.sendStatus(403)
   else if (req.user.adminAccess) next()

@@ -38,6 +38,7 @@ function SingleUser(props) {
         I want to edit my information
       </button>
       {editForm ? (
+
         <>
           <form onSubmit={handleSubmit}>
             {props.adminAccess ? (
