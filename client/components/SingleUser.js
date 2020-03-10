@@ -30,7 +30,11 @@ function SingleUser(props) {
           Read our bestselling steamy romance series here!
         </Link>
       </h4>
-      <button type="button" onClick={() => setEditForm(!editForm)}>
+      <button
+        className="button is-primary"
+        type="button"
+        onClick={() => setEditForm(!editForm)}
+      >
         I want to edit my information
       </button>
       {editForm ? (
