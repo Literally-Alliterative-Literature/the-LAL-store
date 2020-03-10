@@ -8,13 +8,11 @@ const checkToken = (req, res, next) => {
   else res.sendStatus(403)
 }
 
-router.get('/', async (req, res, next) => {
 const limitBooks = [10, 20]
 
 router.get('/10/:pageId', async (req, res, next) => {
   try {
     const count = await Book.count()
-    console.log('gimme count', count)
     const books = await Book.findAll({
       attributes: ['title', 'imageUrl', 'price', 'author', 'id'],
       limit: limitBooks[0],
@@ -30,6 +28,20 @@ router.get('/20/:pageId', async (req, res, next) => {
   try {
     const count = await Book.count()
     const books = await Book.findAll({
+      attributes: ['title', 'imageUrl', 'price', 'author', 'id'],
+      limit: limitBooks[1],
+      offset: (req.params.pageId - 1) * limitBooks[1]
+    })
+    if (books) res.send([books, count])
+    else res.sendStatus(500)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/admin', checkToken, async (req, res, next) => {
+  try {
+    const books = await Book.findAll({
       attributes: [
         'title',
         'imageUrl',
@@ -39,11 +51,8 @@ router.get('/20/:pageId', async (req, res, next) => {
         'quantity',
         'genre'
       ]
-      limit: limitBooks[1],
-      offset: (req.params.pageId - 1) * limitBooks[1]
     })
-    if (books) res.send([books, count])
-    else res.sendStatus(500)
+    res.status(200).send(books)
   } catch (err) {
     next(err)
   }

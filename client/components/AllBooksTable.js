@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {fetchBooks, deleteBook} from '../store/allbooks'
+import {fetchBooksTable, deleteBook} from '../store/allbooks'
 
 function AllBooksTable(props) {
   if (!props.books) props.books = []
@@ -74,7 +74,7 @@ const mapState = state => ({
   books: state.allbooks
 })
 const mapDispatch = dispatch => ({
-  loadBooks: () => dispatch(fetchBooks()),
+  loadBooks: () => dispatch(fetchBooksTable()),
   deleteBook: id => dispatch(deleteBook(id))
 })
 

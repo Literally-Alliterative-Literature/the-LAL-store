@@ -39,6 +39,17 @@ export const fetchBooks = (page, limit) => {
   }
 }
 
+export const fetchBooksTable = () => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get('/api/books/admin')
+      dispatch(getBooks(data))
+    } catch (err) {
+      console.log('Something went wrong inside fetchBooksTable! Err is: ', err)
+    }
+  }
+}
+
 export const addBook = book => {
   return async () => {
     try {

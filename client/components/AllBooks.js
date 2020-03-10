@@ -4,10 +4,12 @@ import {fetchBooks} from '../store/allbooks'
 import {Link} from 'react-router-dom'
 
 const paginationLimit = [10, 20]
+
 function AllBooks(props) {
   let number = props.pageNumber || 100
   const [page, setPage] = useState(1)
   const [limit, setLimit] = useState(10)
+
   if (!props.books) props.books = []
   useEffect(
     () => {
@@ -15,6 +17,7 @@ function AllBooks(props) {
     },
     [limit, page]
   )
+
   return (
     <div className="columns is-multiline is-centered">
       {props.books.length
