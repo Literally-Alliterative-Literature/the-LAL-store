@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {fetchBooks, deleteBook} from '../store/allbooks'
+import {fetchBooksTable, deleteBook} from '../store/allbooks'
 
 function AllBooksTable(props) {
   if (!props.books) props.books = []
@@ -14,7 +14,7 @@ function AllBooksTable(props) {
   }
 
   return (
-    <div>
+    <div className="is-marginless">
       <h2 className="title">All Books</h2>
       <button type="button" className="button is-primary">
         <Link to="/addBook">Add Book</Link>
@@ -74,7 +74,7 @@ const mapState = state => ({
   books: state.allbooks
 })
 const mapDispatch = dispatch => ({
-  loadBooks: () => dispatch(fetchBooks()),
+  loadBooks: () => dispatch(fetchBooksTable()),
   deleteBook: id => dispatch(deleteBook(id))
 })
 

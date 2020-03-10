@@ -22,22 +22,29 @@ router.get('/', checkToken, async (req, res, next) => {
   }
 })
 
-router.put('/', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
+  try {
+    if (!req.user) {
+      res.sendStatus(403)
+      return
+    }
+
+    if (req.user.adminAccess || req.user.id === req.params.id) {
+      const user = await User.findByPk(req.params.id)
+      res.json(user)
+    } else res.sendStatus(403)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/:id', async (req, res, next) => {
   if (!req.user) {
     //If you are not a logged in user, get the heck outta here.
     res.sendStatus(403)
   }
   try {
-    let userId
-    if (req.body.userId) {
-      if (req.user.adminAccess) {
-        userId = req.body.userId
-      } else res.sendStatus(403)
-    } else {
-      userId = req.session.passport.user
-    }
-
-    const user = await User.findByPk(userId)
+    const user = await User.findByPk(req.params.id)
     if (req.body.name) user.name = req.body.name
     if (req.body.email) user.email = req.body.email
     if (req.body.password) {

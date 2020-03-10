@@ -11,7 +11,7 @@ function Checkout(props) {
         {props.cart.length ? (
           props.cart.map(item => {
             return (
-              <li className="orderItem" key={item.id}>
+              <li className="orderItem card" key={item.id}>
                 <h3>Title: {item.book.title}</h3>
                 <h5>${item.book.price}</h5>
                 <p>quantity: {item.quantity}</p>
@@ -19,12 +19,12 @@ function Checkout(props) {
             )
           })
         ) : (
-          <p>Your Cart Is Empty</p>
+          <p className="card">Your Cart Is Empty</p>
         )}
         <br />
-        <p>Billing Information Placeholder</p>
+        <p className="card">Billing Information Placeholder</p>
       </ol>
-      <form className="column is-half">
+      <form className="column is-half card">
         <div className="field">
           <label htmlFor="firstname" className="label">
             First Name:{' '}

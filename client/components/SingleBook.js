@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 import {fetchSingleBook, addReview} from '../store/singleBook'
 import {addToCart} from '../store/shoppingcart'
 
 function SingleBook(props) {
+  console.log('props.user is: ', props.user)
   const [toCart, setToCart] = useState(false)
   const handleClick = event => {
     event.preventDefault()
@@ -95,16 +97,25 @@ function SingleBook(props) {
               </button>
             </form>
             {toCart ? <p>Item added to cart</p> : false}
+            <div>
+              {props.adminAccess ? (
+                <button className="button is-primary" type="button">
+                  <Link to={`/editBook/${props.book.id}`}>Edit Book</Link>
+                </button>
+              ) : (
+                false
+              )}
+            </div>
           </div>
         </div>
-        <div className="box has-background-link">
-          <h3 className="subtitle has-text-white">Reviews</h3>
+        <div className="box">
+          <h3 className="subtitle">Reviews</h3>
           {!props.book.reviews.length ? (
             <p>No Reviews</p>
           ) : (
             props.book.reviews.map(review => {
               return (
-                <div key={review.id} className="review has-text-white">
+                <div key={review.id} className="review">
                   <span>
                     <div className="bold">{review.user.name}</div>{' '}
                     {getDateString(review.createdAt)}
@@ -124,21 +135,33 @@ function SingleBook(props) {
         <div>
           <h4>Add A Review:</h4>
           <form onSubmit={handleSubmit}>
-            <label>Review:</label>
-            <textarea
-              className="form-control textarea is-success"
-              name="review"
-              required="required"
-            />
-            <label>
-              Rating: 1
-              <input type="radio" name="rating" value="1" />
-              <input type="radio" name="rating" value="2" />
-              <input type="radio" name="rating" value="3" />
-              <input type="radio" name="rating" value="4" />
-              <input type="radio" name="rating" value="5" />5
-            </label>
-            <button type="submit">Submit</button>
+            <div className="field">
+              <label>Review:</label>
+              <div className="control">
+                <textarea
+                  className="form-control textarea is-success"
+                  name="review"
+                  required="required"
+                />
+              </div>
+            </div>
+
+            <div className="field">
+              <label className="form-control">
+                <div className="control">
+                  Rating: 1
+                  <input type="radio" name="rating" value="1" />
+                  <input type="radio" name="rating" value="2" />
+                  <input type="radio" name="rating" value="3" />
+                  <input type="radio" name="rating" value="4" />
+                  <input type="radio" name="rating" value="5" />5
+                </div>
+              </label>
+            </div>
+
+            <button className="button is-primary" type="submit">
+              Submit
+            </button>
           </form>
         </div>
       </div>
@@ -148,7 +171,8 @@ function SingleBook(props) {
 }
 
 const mapState = state => ({
-  book: state.singleBook
+  book: state.singleBook,
+  user: state.user
 })
 
 const mapDispatch = dispatch => ({
