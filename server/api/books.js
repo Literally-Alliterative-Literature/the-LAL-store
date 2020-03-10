@@ -16,17 +16,35 @@ router.get('/:limit/:pageId/:search(*)', async (req, res, next) => {
     const count = await Book.count()
     const books = await Book.findAll({
       attributes: ['title', 'imageUrl', 'price', 'author', 'id'],
-      limit: parseInt(req.params.limit),
+    limit: parseInt(req.params.limit),
       where: {title: {[Sequelize.Op.iLike]: `%${req.params.search}%`}},
       offset: (req.params.pageId - 1) * parseInt(req.params.limit)
     })
-    if (books) res.send([books, count])
-    else res.sendStatus(500)
+    res.status(200).send(books)
   } catch (err) {
     next(err)
   }
 })
 
+router.get('/admin', checkToken, async (req, res, next) => {
+  try {
+    const books = await Book.findAll({
+      attributes: [
+        'title',
+        'imageUrl',
+        'price',
+        'author',
+        'id',
+        'quantity',
+        'genre'
+      ]
+      })
+    res.status(200).send(books)
+  } catch (err) {
+    next(err)
+  }
+})
+      
 router.get('/:id', async (req, res, next) => {
   try {
     const book = await Book.findByPk(req.params.id, {

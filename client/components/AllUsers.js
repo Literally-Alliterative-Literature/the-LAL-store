@@ -5,6 +5,7 @@ import {fetchUsers, deleteUser} from '../store/allusers'
 
 function AllUsers(props) {
   if (!props.users) props.user = []
+
   useEffect(() => {
     props.loadUsers()
   }, [])
@@ -39,7 +40,7 @@ function AllUsers(props) {
                     {user.adminAccess ? <td>yes</td> : <td>no</td>}
                     <td>
                       <button type="button">
-                        <Link to="/user">Edit</Link>
+                        <Link to={`/editUser/${user.id}`}>Edit</Link>
                       </button>
                     </td>
                     <td>

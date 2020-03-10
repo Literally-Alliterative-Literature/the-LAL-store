@@ -4221,6 +4221,8 @@ a.box:active {
   font-size: 1rem;
   position: relative;
   text-align: left;
+  margin-left: 20%;
+  margin-right: 20%;
 }
 .control.has-icon .icon {
   color: #dbdbdb;
