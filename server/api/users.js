@@ -29,10 +29,12 @@ router.put('/', async (req, res, next) => {
   }
   try {
     let userId
-    if (!req.body.userId) {
-      userId = req.session.passport.user
+    if (req.body.userId) {
+      if (req.user.adminAccess) {
+        userId = req.body.userId
+      } else res.sendStatus(403)
     } else {
-      userId = req.body.userId
+      userId = req.session.passport.user
     }
 
     const user = await User.findByPk(userId)
