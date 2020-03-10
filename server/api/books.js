@@ -2,9 +2,9 @@ const router = require('express').Router()
 const {Book, Review, User} = require('../db/models')
 module.exports = router
 
-const limitBooks = [10, 20]
+const limitBooks = [12, 20]
 
-router.get('/10/:pageId', async (req, res, next) => {
+router.get('/12/:pageId', async (req, res, next) => {
   try {
     const count = await Book.count()
     console.log('gimme count', count)

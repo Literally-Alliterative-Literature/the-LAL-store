@@ -30,7 +30,7 @@ const Navbar = ({handleClick, isLoggedIn, adminAccess}) => (
             <Link to="/cart" className="navbar-item">
               Cart
             </Link>
-            <Link to="/books" className="navbar-item">
+            <Link to="/books/" className="navbar-item">
               Browse
             </Link>
           </div>

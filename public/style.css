@@ -1,56 +1,117 @@
-/* body {
-  font-family: sans-serif;
+/* Jason's notes begin here.
+
+/* tiles are used in checkout.  */
+
+/* title and subtitle are used in singleBook and cart */
+.title {
+  margin-top: 3%;
+  color: #363636;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.125;
 }
 
-a {
-  text-decoration: none;
+.subtitle {
+  color: #4a4a4a;
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.25;
 }
 
-label {
+/* box is used in shoppingcart for shoppingcart items */
+.box {
+  background-color: whitesmoke;
+  border-radius: 6px;
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+  color: #4a4a4a;
   display: block;
+  padding: 1.25rem;
 }
 
-img {
-  max-height: 300px;
-  max-width: 200px;
+/*card is used in the cart, singlebook, and browse sections*/
+
+.card {
+  background-color: whitesmoke;
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+  color: #4a4a4a;
+  max-width: 100%;
+  position: relative;
 }
 
-nav a {
-  display: inline-block;
-  margin: 1em;
+/*color of review box. Navbar is separate style but same color at the moment.*/
+.has-background-link {
+  background-color: #3273dc !important;
 }
 
-form div {
-  margin: 1em;
-  display: inline-block;
-} */
+/*Background pattern from http://www.colourlovers.com/pattern/3982949/poppies_on_parchment - feel free to use your own pattern if you find a nice one on the website*/
+.background-img {
+  background-image: url('/images/pattern2.png');
+}
 
-/*
-// 1. Import the initial variables
-@import "../node_modules/bulma/sass/utilities/initial-variables";
-
-// 2. Set your own initial variables
-// Update the blue shade, used for links
-$blue: #06bcef;
-// Add pink and its invert
-$pink: #ff8080;
-$pink-invert: #fff;
-// Update the sans-serif font family
-$family-sans-serif: "Helvetica", "Arial", sans-serif;
-
-// 3. Set the derived variables
-// Use the new pink as the primary color
-$primary: $pink;
-$primary-invert: $pink-invert;
-
-// 4. Import the rest of Bulma
-*/
-/*! bulma.io v0.7.2 | MIT License | github.com/jgthms/bulma */
-
+/* text in review box*/
 .review {
   color: white;
   margin-top: 2%;
 }
+
+/* Navbar styles are here. No clue which ones are important. We can also use is-dark, is-primary, is-light styles for our navbar if we decide on a different color scheme */
+
+.navbar.is-link {
+  background-color: #3273dc;
+  color: #fff;
+}
+.navbar.is-link .navbar-brand > .navbar-item,
+.navbar.is-link .navbar-brand .navbar-link {
+  color: #fff;
+}
+.navbar.is-link .navbar-brand > a.navbar-item:hover,
+.navbar.is-link .navbar-brand > a.navbar-item.is-active,
+.navbar.is-link .navbar-brand .navbar-link:hover,
+.navbar.is-link .navbar-brand .navbar-link.is-active {
+  background-color: #2366d1;
+  color: #fff;
+}
+.navbar.is-link .navbar-brand .navbar-link::after {
+  border-color: #fff;
+}
+.navbar.is-link .navbar-burger {
+  color: #fff;
+}
+@media screen and (min-width: 1088px) {
+  .navbar.is-link .navbar-start > .navbar-item,
+  .navbar.is-link .navbar-start .navbar-link,
+  .navbar.is-link .navbar-end > .navbar-item,
+  .navbar.is-link .navbar-end .navbar-link {
+    color: #fff;
+  }
+
+  .navbar.is-link .navbar-start > a.navbar-item:hover,
+  .navbar.is-link .navbar-start > a.navbar-item.is-active,
+  .navbar.is-link .navbar-start .navbar-link:hover,
+  .navbar.is-link .navbar-start .navbar-link.is-active,
+  .navbar.is-link .navbar-end > a.navbar-item:hover,
+  .navbar.is-link .navbar-end > a.navbar-item.is-active,
+  .navbar.is-link .navbar-end .navbar-link:hover,
+  .navbar.is-link .navbar-end .navbar-link.is-active {
+    background-color: #2366d1;
+    color: #fff;
+  }
+  .navbar.is-link .navbar-start .navbar-link::after,
+  .navbar.is-link .navbar-end .navbar-link::after {
+    border-color: #fff;
+  }
+  .navbar.is-link .navbar-item.has-dropdown:hover .navbar-link,
+  .navbar.is-link .navbar-item.has-dropdown.is-active .navbar-link {
+    background-color: #2366d1;
+    color: #fff;
+  }
+  .navbar.is-link .navbar-dropdown a.navbar-item.is-active {
+    background-color: #3273dc;
+    color: #fff;
+  }
+}
+
+/*end navbar styles*/
 
 #content-column {
   margin-top: auto;
@@ -1097,10 +1158,6 @@ a.has-text-link:focus {
   color: #205bbc !important;
 }
 
-.has-background-link {
-  background-color: #3273dc !important;
-}
-
 .has-text-info {
   color: #209cee !important;
 }
@@ -1672,15 +1729,6 @@ a.has-text-danger:focus {
 
 .is-shadowless {
   box-shadow: none !important;
-}
-
-.box {
-  background-color: whitesmoke;
-  border-radius: 6px;
-  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
-  color: #4a4a4a;
-  display: block;
-  padding: 1.25rem;
 }
 
 a.box:hover,
@@ -4891,12 +4939,6 @@ a.tag:hover {
   vertical-align: middle;
 }
 
-.title {
-  color: #363636;
-  font-size: 2rem;
-  font-weight: 600;
-  line-height: 1.125;
-}
 .title strong {
   color: inherit;
   font-weight: inherit;
@@ -4929,12 +4971,6 @@ a.tag:hover {
   font-size: 0.75rem;
 }
 
-.subtitle {
-  color: #4a4a4a;
-  font-size: 1.25rem;
-  font-weight: 400;
-  line-height: 1.25;
-}
 .subtitle strong {
   color: #363636;
   font-weight: 600;
@@ -5069,14 +5105,6 @@ a.tag:hover {
 }
 .breadcrumb.has-succeeds-separator li + li::before {
   content: '\0227B';
-}
-
-.card {
-  background-color: white;
-  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
-  color: #4a4a4a;
-  max-width: 100%;
-  position: relative;
 }
 
 .card-header {
@@ -5987,59 +6015,6 @@ a.list-item {
   }
   .navbar.is-primary .navbar-dropdown a.navbar-item.is-active {
     background-color: #00d1b2;
-    color: #fff;
-  }
-}
-.navbar.is-link {
-  background-color: #3273dc;
-  color: #fff;
-}
-.navbar.is-link .navbar-brand > .navbar-item,
-.navbar.is-link .navbar-brand .navbar-link {
-  color: #fff;
-}
-.navbar.is-link .navbar-brand > a.navbar-item:hover,
-.navbar.is-link .navbar-brand > a.navbar-item.is-active,
-.navbar.is-link .navbar-brand .navbar-link:hover,
-.navbar.is-link .navbar-brand .navbar-link.is-active {
-  background-color: #2366d1;
-  color: #fff;
-}
-.navbar.is-link .navbar-brand .navbar-link::after {
-  border-color: #fff;
-}
-.navbar.is-link .navbar-burger {
-  color: #fff;
-}
-@media screen and (min-width: 1088px) {
-  .navbar.is-link .navbar-start > .navbar-item,
-  .navbar.is-link .navbar-start .navbar-link,
-  .navbar.is-link .navbar-end > .navbar-item,
-  .navbar.is-link .navbar-end .navbar-link {
-    color: #fff;
-  }
-  .navbar.is-link .navbar-start > a.navbar-item:hover,
-  .navbar.is-link .navbar-start > a.navbar-item.is-active,
-  .navbar.is-link .navbar-start .navbar-link:hover,
-  .navbar.is-link .navbar-start .navbar-link.is-active,
-  .navbar.is-link .navbar-end > a.navbar-item:hover,
-  .navbar.is-link .navbar-end > a.navbar-item.is-active,
-  .navbar.is-link .navbar-end .navbar-link:hover,
-  .navbar.is-link .navbar-end .navbar-link.is-active {
-    background-color: #2366d1;
-    color: #fff;
-  }
-  .navbar.is-link .navbar-start .navbar-link::after,
-  .navbar.is-link .navbar-end .navbar-link::after {
-    border-color: #fff;
-  }
-  .navbar.is-link .navbar-item.has-dropdown:hover .navbar-link,
-  .navbar.is-link .navbar-item.has-dropdown.is-active .navbar-link {
-    background-color: #2366d1;
-    color: #fff;
-  }
-  .navbar.is-link .navbar-dropdown a.navbar-item.is-active {
-    background-color: #3273dc;
     color: #fff;
   }
 }

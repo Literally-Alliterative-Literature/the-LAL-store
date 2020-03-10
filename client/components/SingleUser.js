@@ -29,15 +29,39 @@ function SingleUser(props) {
         I want to edit my information
       </button>
       {editForm ? (
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="name">Edit Name:</label>
-          <input type="text" name="name" />
-          <label htmlFor="email">Edit Email:</label>
-          <input type="email" name="email" />
-          <label htmlFor="password">Edit Password:</label>
-          <input type="text" name="password" />
-          <label htmlFor="address">Edit Address:</label>
-          <input type="text" name="address" />
+        <form onSubmit={handleSubmit} className="form-horizontal">
+          <div className="field">
+            <label className="label" htmlFor="name">
+              Edit Name:
+            </label>
+            <div className="control">
+              <input type="text" name="name" />
+            </div>
+          </div>
+          <div className="field">
+            <label className="label" htmlFor="email">
+              Edit Email:
+            </label>
+            <div className="control">
+              <input type="email" name="email" />
+            </div>
+          </div>
+          <div className="field">
+            <label className="label" htmlFor="password">
+              Edit Password:
+            </label>
+            <div className="control">
+              <input type="text" name="password" />
+            </div>
+          </div>
+          <div className="field">
+            <label className="label" htmlFor="address">
+              Edit Address:
+            </label>
+            <div className="control">
+              <input type="text" name="address" />
+            </div>
+          </div>
           <input type="submit" name="submit" />
         </form>
       ) : (

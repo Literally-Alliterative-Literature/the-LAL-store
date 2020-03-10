@@ -3,11 +3,11 @@ import {connect} from 'react-redux'
 import {fetchBooks} from '../store/allbooks'
 import {Link} from 'react-router-dom'
 
-const paginationLimit = [10, 20]
+const paginationLimit = [12, 20]
 function AllBooks(props) {
   let number = props.pageNumber || 100
   const [page, setPage] = useState(1)
-  const [limit, setLimit] = useState(10)
+  const [limit, setLimit] = useState(20)
   if (!props.books) props.books = []
   useEffect(
     () => {
@@ -21,10 +21,10 @@ function AllBooks(props) {
         ? props.books.map(book => {
             return (
               <div
-                className="column is-one-third has-text-centered"
+                className="column is-one-quarter has-text-centered "
                 key={book.id}
               >
-                <div>
+                <div className="card">
                   <Link to={`/books/${book.id}`} className="allBookSingle">
                     <img src={book.imageUrl} />
                     <h3>{book.title}</h3>
