@@ -4,7 +4,6 @@ const Sequelize = require('sequelize')
 
 module.exports = router
 
-
 const checkToken = (req, res, next) => {
   if (!req.user) res.sendStatus(403)
   else if (req.user.adminAccess) next()
@@ -22,6 +21,25 @@ router.get('/:limit/:pageId/:search(*)', async (req, res, next) => {
     })
     if (books) res.send([books, count])
     else res.sendStatus(500)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/admin', checkToken, async (req, res, next) => {
+  try {
+    const books = await Book.findAll({
+      attributes: [
+        'title',
+        'imageUrl',
+        'price',
+        'author',
+        'id',
+        'quantity',
+        'genre'
+      ]
+    })
+    res.status(200).send(books)
   } catch (err) {
     next(err)
   }

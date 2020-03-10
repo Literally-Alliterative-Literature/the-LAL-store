@@ -15,7 +15,8 @@ import {
   Confirmation,
   AllBooksTable,
   AddBook,
-  EditBook
+  EditBook,
+  EditUser
 } from './components'
 import {me} from './store'
 
@@ -45,6 +46,7 @@ class Routes extends Component {
         <Route path="/booksTable" component={AllBooksTable} />
         <Route path="/addBook" component={AddBook} />
         <Route path="/editBook/:id" component={EditBook} />
+        <Route path="/editUser/:id" component={EditUser} />
 
         {isLoggedIn && (
           <Switch>

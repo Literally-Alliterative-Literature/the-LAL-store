@@ -30,10 +30,9 @@ export const me = () => async dispatch => {
   }
 }
 
-export const editUser = userInfo => async dispatch => {
+export const editUser = (id, user) => async () => {
   try {
-    const {data} = await axios.put(`/api/users`, userInfo)
-    dispatch(getUser(data))
+    await axios.put(`/api/users/${id}`, user)
   } catch (err) {
     console.log('Something went wrong in editUser. Err is: ', err)
   }

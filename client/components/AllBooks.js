@@ -16,6 +16,7 @@ function AllBooks(props) {
     },
     [limit, page, search]
   )
+
   return (
     <div className="columns is-multiline is-centered">
       {props.books.length
