@@ -98,7 +98,12 @@
   text-align: center;
   transition: all 0.2s;
   margin: 20px;
+  cursor: pointer;
 }
+.change-quantity:focus {
+  outline: 0;
+}
+
 .change-quantity:hover {
   border-color: #4169e1;
 }
@@ -110,14 +115,14 @@
   }
 }
 
-/* CHANGE QUANTITY BUTTON ENDS HERE */
+/* ^^^^^^^^^^CHANGE QUANTITY BUTTON ENDS HERE */
 
 /* REMOVE FROM CART BUTTON STARTS HERE*/
 .remove-from-cart {
   display: inline-block;
   padding: 0.35em 1.2em;
   border: 0.16em solid rgba(255, 255, 255, 0);
-  margin: 0 0.3em 0.3em 0;
+  margin: 15px;
   border-radius: 0.12em;
   box-sizing: border-box;
   text-decoration: none;
@@ -125,13 +130,19 @@
   font-weight: 300;
   background-color: #87cefa;
   text-align: center;
+  cursor: pointer;
 }
 .remove-from-cart:hover {
   border-color: black;
 }
 
-/*REMOVE FROM CART BUTTON ENDS HERE */
-
+/*^^^^^^^^REMOVE FROM CART BUTTON ENDS HERE */
+.subtitle-cart {
+  color: #4a4a4a;
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.25;
+}
 .subtitle {
   color: #4a4a4a;
   font-size: 1.25rem;
@@ -144,22 +155,53 @@
 
 .second-part {
   color: #363636;
-  font-size: 1.2rem;
-  font-weight: 600;
-  line-height: 1.125;
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.25;
   margin: 30px;
-  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
   display: flex;
   width: 200px;
-  height: 150px;
+  height: 250px;
   background-color: whitesmoke;
   justify-content: center;
   flex-direction: column;
   align-items: center;
 }
-.content-second-part {
+.form-control-quantity {
+  display: flex;
+  margin: 25px;
+  justify-content: center;
+  border: 0.16em solid rgba(255, 255, 255, 0);
+  border-radius: 2em;
+  width: 65%;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-weight: 300;
+  text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+  transition: all 0.2s;
+  font-size: 12px;
+  background-color: white;
+  border-color: gray;
+  text-align: center;
 }
-
+.form-control-quantity:focus {
+  outline: 0;
+}
+/* SUM INSIDE OF CART CARD BEGINS HERE */
+.sum-insideCart {
+  color: #363636;
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.25;
+  height: 350px;
+  width: 500px;
+  margin: 30px;
+  display: flex;
+  background-color: whitesmoke;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
 /* box is used in shoppingcart for shoppingcart items */
 .box {
   background-color: whitesmoke;

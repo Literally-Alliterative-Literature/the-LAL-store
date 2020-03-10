@@ -29,36 +29,38 @@ function ShoppingCart(props) {
           props.cart.map(item => {
             return (
               <li className="tile is-parent is-9 box" key={item.id}>
-                <div className="tile is-child has-text-centered">
-                  <h3 className="subtitle">Title: {item.book.title}</h3>
-                  <p className="subtitle">Author: {item.book.author}</p>
+                <div className="sum-insideCart">
+                  <div className="tile is-child">
+                    <img src={item.book.imageUrl} />
+                  </div>
+                  <h3 className="subtitle-cart">Title: {item.book.title}</h3>
+                  <p className="subtitle-cart">Author: {item.book.author}</p>
+
                   <h5 className="content">
                     Price per item: ${item.book.price}
                   </h5>
                 </div>
                 <div className="second-part">
                   <p className="content-second-part">
-                    quantity: {item.quantity}
+                    Quantity: {item.quantity}
                   </p>
                   <form
                     className="content-second-part"
                     onSubmit={event => handleQuantityClick(event, item.id)}
                   >
                     <input
-                      className="form-control"
+                      className="form-control-quantity"
                       type="number"
                       name="quantity"
                       min="1"
                       max="1000"
+                      placeholder="  Quantity"
                     />
                     <button className="change-quantity" type="submit">
                       Change Quantity
                     </button>
                   </form>
                   <p>Total price: ${item.quantity * item.book.price}</p>
-                </div>
-                <div className="tile is-child">
-                  <img src={item.book.imageUrl} />
                   <button
                     type="button"
                     className="remove-from-cart"
