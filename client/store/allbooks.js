@@ -34,6 +34,16 @@ export const fetchBooks = () => {
   }
 }
 
+export const addBook = book => {
+  return async () => {
+    try {
+      await axios.post('/api/books', book)
+    } catch (err) {
+      console.log('Something went wrong inside addBook! Err is: ', err)
+    }
+  }
+}
+
 export const deleteBook = id => {
   return async dispatch => {
     try {

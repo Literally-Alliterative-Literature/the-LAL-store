@@ -60,6 +60,17 @@ router.post('/:id', async (req, res, next) => {
   }
 })
 
+router.post('/', checkToken, async (req, res, next) => {
+  try {
+    console.log('req.body is', req.body)
+
+    await Book.create(req.body)
+    res.sendStatus(201)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.delete('/:id', checkToken, async (req, res, next) => {
   try {
     const book = await Book.findByPk(req.params.id)

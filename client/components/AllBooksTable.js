@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 import {fetchBooks, deleteBook} from '../store/allbooks'
 
 function AllBooksTable(props) {
@@ -17,6 +18,9 @@ function AllBooksTable(props) {
   return (
     <div>
       <h2>All Books</h2>
+      <button type="button">
+        <Link to="/addBook">Add Book</Link>
+      </button>
       <table className="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
         <tbody>
           <tr>

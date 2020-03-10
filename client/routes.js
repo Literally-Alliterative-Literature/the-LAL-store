@@ -13,7 +13,8 @@ import {
   SingleUser,
   AllUsers,
   Confirmation,
-  AllBooksTable
+  AllBooksTable,
+  AddBook
 } from './components'
 import {me} from './store'
 
@@ -41,6 +42,7 @@ class Routes extends Component {
         <Route path="/users" component={AllUsers} />
         <Route path="/confirmation" component={Confirmation} />
         <Route path="/booksTable" component={AllBooksTable} />
+        <Route path="/addBook" component={AddBook} />
 
         {isLoggedIn && (
           <Switch>
