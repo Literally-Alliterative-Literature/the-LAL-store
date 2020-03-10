@@ -5,7 +5,7 @@ import history from '../history'
  * ACTION TYPES
  */
 const GET_USER = 'GET_USER'
-const REMOVE_USER = 'REMOVE_USER'
+export const REMOVE_USER = 'REMOVE_USER'
 
 /**
  * INITIAL STATE
@@ -32,7 +32,7 @@ export const me = () => async dispatch => {
 
 export const editUser = userInfo => async dispatch => {
   try {
-    const {data} = await axios.post(`/api/users`, userInfo)
+    const {data} = await axios.put(`/api/users`, userInfo)
     dispatch(getUser(data))
   } catch (err) {
     console.log('Something went wrong in editUser. Err is: ', err)

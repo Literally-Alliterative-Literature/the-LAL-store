@@ -21,9 +21,14 @@ const Navbar = ({handleClick, isLoggedIn, adminAccess}) => (
               User
             </Link>
             {adminAccess ? (
-              <Link to="/users" className="navbar-item">
-                All Users
-              </Link>
+              <>
+                <Link to="/users" className="navbar-item">
+                  All Users
+                </Link>
+                <Link to="/booksTable" className="navbar-item">
+                  All Books
+                </Link>
+              </>
             ) : (
               false
             )}

@@ -5,16 +5,21 @@ import {editUser} from '../store'
 
 function SingleUser(props) {
   const [editForm, setEditForm] = useState(false)
+  const [editedUser, setEdited] = useState(false)
+
   const handleSubmit = event => {
     event.preventDefault()
     const userEditInfo = {
-      name: event.target.name.value || props.user.name,
-      email: event.target.email.value || props.user.email,
-      password: event.target.password.value || false,
-      address: event.target.address.value || props.user.address
+      name: event.target.name.value,
+      email: event.target.email.value,
+      password: event.target.password.value,
+      address: event.target.address.value,
+      userId: event.target.userId.value || false
     }
     props.editUserData(userEditInfo)
+    setEdited(true)
   }
+
   return (
     <div>
       <h2>Welcome, {props.user.name}</h2>
@@ -25,54 +30,82 @@ function SingleUser(props) {
           Read our bestselling steamy romance series here!
         </Link>
       </h4>
-      <button type="button" onClick={() => setEditForm(!editForm)}>
+      <button
+        className="button is-primary"
+        type="button"
+        onClick={() => setEditForm(!editForm)}
+      >
         I want to edit my information
       </button>
       {editForm ? (
-        <form onSubmit={handleSubmit} className="form-horizontal">
-          <div className="field">
-            <label className="label" htmlFor="name">
-              Edit Name:
-            </label>
-            <div className="control">
-              <input type="text" name="name" />
+
+        <>
+          <form onSubmit={handleSubmit}>
+            {props.adminAccess ? (
+              <div className="field">
+                <label className="label" htmlFor="id">
+                  User ID:
+                </label>
+                <div className="control">
+                  <input type="number" name="userId" className="input" />
+                </div>
+              </div>
+            ) : (
+              false
+            )}
+
+            <div className="field">
+              <label className="label" htmlFor="name">
+                Edit Name:
+              </label>
+              <div className="control">
+                <input type="text" name="name" />
+              </div>
             </div>
-          </div>
-          <div className="field">
-            <label className="label" htmlFor="email">
-              Edit Email:
-            </label>
-            <div className="control">
-              <input type="email" name="email" />
+
+            <div className="field">
+              <label className="label" htmlFor="email">
+                Edit Email:
+              </label>
+              <div className="control">
+                <input type="email" name="email" />
+              </div>
             </div>
-          </div>
-          <div className="field">
-            <label className="label" htmlFor="password">
-              Edit Password:
-            </label>
-            <div className="control">
-              <input type="text" name="password" />
+
+            <div className="field">
+              <label className="label" htmlFor="password">
+                Edit Password:
+              </label>
+              <div className="control">
+                <input type="text" name="password" />
+              </div>
             </div>
-          </div>
-          <div className="field">
-            <label className="label" htmlFor="address">
-              Edit Address:
-            </label>
-            <div className="control">
-              <input type="text" name="address" />
+
+            <div className="field">
+              <label className="label" htmlFor="address">
+                Edit Address:
+              </label>
+              <div className="control">
+                <input type="text" name="address" />
+              </div>
             </div>
-          </div>
-          <input type="submit" name="submit" />
-        </form>
+
+            <button type="submit" className="button is-primary">
+              Submit
+            </button>
+          </form>
+        </>
       ) : (
         false
       )}
+      {editedUser ? <div>User Edited!</div> : false}
     </div>
   )
 }
 
 const mapState = state => ({
-  user: state.user
+  user: state.user,
+  adminAccess: state.user.adminAccess
 })
 
 const mapDispatch = dispatch => ({

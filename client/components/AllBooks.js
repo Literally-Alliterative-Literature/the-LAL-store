@@ -7,13 +7,14 @@ const paginationLimit = [12, 20]
 function AllBooks(props) {
   let number = props.pageNumber || 100
   const [page, setPage] = useState(1)
-  const [limit, setLimit] = useState(20)
+  const [limit, setLimit] = useState(10)
+  const [search, setSearch] = useState('')
   if (!props.books) props.books = []
   useEffect(
     () => {
-      props.loadBooks(page, limit)
+      props.loadBooks(page, limit, search)
     },
-    [limit, page]
+    [limit, page, search]
   )
   return (
     <div className="columns is-multiline is-centered">
@@ -35,6 +36,16 @@ function AllBooks(props) {
             )
           })
         : false}
+      <div className="menu" id="search-bar">
+        <form>
+          <input
+            name="search"
+            onChange={evt => setSearch(evt.target.value)}
+            value={search}
+            placeholder="Search"
+          />
+        </form>
+      </div>
       <div>
         {paginationLimit.map(limited => (
           <button
@@ -83,7 +94,7 @@ const mapState = state => ({
 })
 
 const mapDispatch = dispatch => ({
-  loadBooks: (page, limit) => dispatch(fetchBooks(page, limit))
+  loadBooks: (page, limit, search) => dispatch(fetchBooks(page, limit, search))
 })
 
 export default connect(mapState, mapDispatch)(AllBooks)
