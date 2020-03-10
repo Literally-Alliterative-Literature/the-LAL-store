@@ -62,10 +62,28 @@ router.post('/:id', async (req, res, next) => {
 
 router.post('/', checkToken, async (req, res, next) => {
   try {
-    console.log('req.body is', req.body)
-
     await Book.create(req.body)
     res.sendStatus(201)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/:id', checkToken, async (req, res, next) => {
+  try {
+    const book = await Book.findByPk(req.params.id)
+
+    if (req.body.title) book.title = req.body.title
+    if (req.body.author) book.author = req.body.author
+    if (req.body.imageUrl) book.imageUrl = req.body.imageUrl
+    if (req.body.price) book.price = req.body.price
+    if (req.body.quantity) book.quantity = req.body.quantity
+    if (req.body.synopsis) book.synopsis = req.body.synopsis
+    if (req.body.genre) book.genre = req.body.genre
+
+    await book.save()
+
+    res.sendStatus(200)
   } catch (err) {
     next(err)
   }

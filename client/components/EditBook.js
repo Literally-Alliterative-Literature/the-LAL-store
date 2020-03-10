@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 import {editBook} from '../store/allbooks'
 
 function EditBook(props) {
@@ -7,7 +8,16 @@ function EditBook(props) {
 
   const handleSubmit = event => {
     event.preventDefault()
-    props.editBook()
+    const book = {
+      title: event.target.title.value,
+      author: event.target.author.value,
+      imageUrl: event.target.imageUrl.value,
+      price: event.target.price.value,
+      quantity: event.target.quantity.value,
+      synopsis: event.target.synopsis.value,
+      genre: event.target.genre.value
+    }
+    props.editBook(props.match.params.id, book)
     setEdited(true)
   }
 
@@ -74,7 +84,7 @@ function EditBook(props) {
           <>
             <h3>Book Edited!</h3>
             <button type="button">
-              <a href="/editBook">Edit Another Book</a>
+              <Link to="/booksTable">Edit Another Book</Link>
             </button>
           </>
         ) : (
@@ -86,7 +96,7 @@ function EditBook(props) {
 }
 
 const mapDispatch = dispatch => ({
-  editBook: book => dispatch(editBook(book))
+  editBook: (id, book) => dispatch(editBook(id, book))
 })
 
 export default connect(null, mapDispatch)(EditBook)

@@ -9,8 +9,6 @@ function AllBooksTable(props) {
     props.loadBooks()
   }, [])
 
-  const handleEdit = event => {}
-
   const handleDelete = id => {
     props.deleteBook(id)
   }
@@ -44,8 +42,8 @@ function AllBooksTable(props) {
                   <td>{book.price}</td>
                   <td>{book.quantity}</td>
                   <td>
-                    <button type="button" onClick={handleEdit}>
-                      Edit
+                    <button type="button">
+                      <Link to={`/editBook/${book.id}`}>Edit</Link>
                     </button>
                   </td>
                   <td>
