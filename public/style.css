@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
 /* Jason's notes begin here.
 
 /* tiles are used in checkout.  */
@@ -174,6 +175,9 @@ body {
   line-height: 1.25;
   margin: 30px;
 }
+.is-9.box {
+  background-color: whitesmoke;
+}
 
 /* SECOND PART OF THE CART CARD STARTS HERE */
 
@@ -211,6 +215,8 @@ body {
 .form-control-quantity:focus {
   outline: 0;
 }
+/* SECOND PART OF THE CART ENDS  HERE */
+
 /* SUM INSIDE OF CART CARD BEGINS HERE */
 .sum-insideCart {
   color: #363636;
@@ -226,6 +232,104 @@ body {
   flex-direction: column;
   align-items: center;
 }
+/* SUM INSIDE OF CART CARD ENDS HERE */
+/* SEARCH BAR BEGINS HERE */
+.pages-books {
+  width: 100%;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  outline: none;
+  display: inline-block;
+  margin-bottom: 3%;
+  text-align: center;
+}
+
+#search-bar {
+  width: 100%;
+  height: 20px;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  outline: none;
+  color: gray;
+  display: inline-block;
+  margin-top: 3%;
+  padding: 0.3em 1.2em;
+  border: 0.16em solid rgba(255, 255, 255, 0);
+  box-sizing: border-box;
+  text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+
+  /* margin-left: 500%; */
+}
+.searchTerm:focus {
+  color: gray;
+}
+/* ^^^^SEARCH BAR ENDS HERE */
+
+/* PAGINATION BUTTONS BEGIN HERE */
+
+#ourPagination {
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  outline: none;
+  color: gray;
+  display: inline-block;
+}
+
+/* PAGINATION BUTTONS ENDS HERE */
+
+.allbooks-button {
+  display: inline-block;
+  padding: 0.3em 1.2em;
+  margin: 15px;
+  border: 0.16em solid rgba(255, 255, 255, 0);
+  border-radius: 2em;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  color: #ffffff;
+  text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+  text-align: center;
+  transition: all 0.2s;
+  background-color: #6495ed;
+  font-size: 15px;
+  outline: none;
+  cursor: pointer;
+}
+.allbooks-button:hover {
+  border-color: #4169e1;
+}
+.pagination-button {
+  display: inline-block;
+  padding: 0.3em 1.2em;
+  margin: 15px;
+  border: 0.16em solid rgba(255, 255, 255, 0);
+  border-radius: 2em;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  color: #ffffff;
+  text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+  text-align: center;
+  transition: all 0.2s;
+  background-color: #6495ed;
+  font-size: 15px;
+  outline: none;
+  cursor: pointer;
+}
+.upperPagination {
+  text-align: center;
+}
+.pagination-button:hover {
+  border-color: #4169e1;
+}
+
 /* box is used in shoppingcart for shoppingcart items */
 
 .subtitleAllBooks {
