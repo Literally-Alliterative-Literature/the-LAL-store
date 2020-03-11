@@ -10,6 +10,30 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min //The maximum is exclusive and the minimum is inclusive
 }
 
+const imageSeed = [
+  '/images/rewriting.jpg',
+  '/images/orly.jpg',
+  '/images/orly1.jpg',
+  '/images/orly2.jpg',
+  '/images/orly3.jpg',
+  '/images/orly4.jpg',
+  '/images/orly5.jpg',
+  '/images/orly6.jpg',
+  '/images/orly7.jpg',
+  '/images/orly8.png',
+  '/images/orly9.jpg',
+  '/images/orly10.jpg',
+  '/images/orly11.jpg',
+  '/images/orly12.jpg',
+  '/images/orly13.jpg',
+  '/images/orly14.jpg',
+  '/images/orly15.jpg',
+  '/images/orly16.jpg',
+  '/images/orly17.jpg',
+  '/images/orly18.jpg',
+  '/images/orly19.jpg'
+]
+
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
@@ -36,6 +60,7 @@ async function seed() {
       title: '50 shades of Jason',
       genre: 'Steamy Romance',
       synopsis: 'Twilight spinoff garbage',
+      imageUrl: imageSeed[0],
       price: 2,
       quantity: 5000,
       ratings: 5
@@ -45,6 +70,7 @@ async function seed() {
       title: '51 shades of Jason',
       genre: 'Steamy Romance',
       synopsis: 'Jasons saga continues',
+      imageUrl: imageSeed[1],
       price: 10,
       quantity: 5000,
       ratings: 5
@@ -54,34 +80,27 @@ async function seed() {
       title: '52 shades of Jason',
       genre: 'Steamy Romance',
       synopsis: 'Jason is unstoppable  wink wink',
+      imageUrl: imageSeed[2],
       price: 100,
       quantity: 5000,
       ratings: 5
     })
   ])
 
+  let counter = 3
   for (let i = 0; i < 100; i++) {
-    if (i % 2 === 0) {
-      await Book.create({
-        author: Faker.name.findName(),
-        title: Faker.company.catchPhrase(),
-        genre: 'Steamy Romance',
-        synopsis: Faker.lorem.paragraph(),
-        price: getRandomInt(5, 30),
-        imageUrl: '/images/orly.jpg',
-        quantity: Faker.random.number(),
-        ratings: 3
-      })
-    }
     await Book.create({
       author: Faker.name.findName(),
       title: Faker.company.catchPhrase(),
       genre: 'Steamy Romance',
+      imageUrl: imageSeed[counter],
       synopsis: Faker.lorem.paragraph(),
       price: getRandomInt(5, 30),
       quantity: Faker.random.number(),
       ratings: 3
     })
+    counter++
+    if (counter > 19) counter = 0
   }
 
   for (let i = 0; i < 100; i++) {

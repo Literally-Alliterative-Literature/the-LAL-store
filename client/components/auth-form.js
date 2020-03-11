@@ -9,47 +9,70 @@ import {auth} from '../store'
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
   return (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input required name="email" type="text" />
-        </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input required name="password" type="password" />
-        </div>
-        {displayName === 'Sign Up' ? (
-          <div>
-            <small>Name</small>
-            <label htmlFor="userName">
-              <input required name="userName" type="text" />
-            </label>
-          </div>
-        ) : (
-          false
-        )}
-        {displayName === 'Sign Up' ? (
-          <div>
-            <small>Address</small>
-            <label htmlFor="address">
-              <input required name="address" type="text" />
-            </label>
-          </div>
-        ) : (
-          false
-        )}
+    <div className="container">
+      <div className="columns">
+        <div className="column">
+          <div className="tile centerMeSignup">
+            <form onSubmit={handleSubmit} name={name}>
+              <div>
+                <label htmlFor="email">
+                  <small>Email</small>
+                </label>
+                <input required name="email" type="text" />
+              </div>
+              <div>
+                <label htmlFor="password">
+                  <small>Password</small>
+                </label>
+                <input required name="password" type="password" />
+              </div>
+              {displayName === 'Sign Up' ? (
+                <div>
+                  <small>Name</small>
+                  <label htmlFor="userName">
+                    <input required name="userName" type="text" />
+                  </label>
+                </div>
+              ) : (
+                false
+              )}
+              {displayName === 'Sign Up' ? (
+                <div>
+                  <small>Address</small>
+                  <label htmlFor="address">
+                    <input required name="address" type="text" />
+                  </label>
+                </div>
+              ) : (
+                false
+              )}
 
-        <div>
-          <button type="submit">{displayName}</button>
+              <div>
+                <button type="submit">{displayName}</button>
+              </div>
+              {error && error.response && <div> {error.response.data} </div>}
+
+              <a href="/auth/google">{displayName} with Google</a>
+            </form>
+          </div>
+          <img
+            src="/images/marilyn2.png"
+            alt="welcome2"
+            className="welcomeImg"
+          />
         </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
-      <a href="/auth/google">{displayName} with Google</a>
+        <div className="column">
+          {' '}
+          <img
+            src="/images/marilyn1.png"
+            className="welcomeImg"
+            alt="welcome"
+          />
+          <button type="button" className="button pushDown">
+            I need some books!
+          </button>
+        </div>
+      </div>
     </div>
   )
 }
