@@ -11,7 +11,7 @@ function Checkout(props) {
         {props.cart.length ? (
           props.cart.map(item => {
             return (
-              <li className="orderItem box" key={item.id}>
+              <li className="orderItem box has-text-black" key={item.id}>
                 <h3>Title: {item.book.title}</h3>
                 <h5>${item.book.price}</h5>
                 <p>quantity: {item.quantity}</p>
@@ -19,7 +19,7 @@ function Checkout(props) {
             )
           })
         ) : (
-          <p className="box">Your Cart Is Empty</p>
+          <p className="box has-text-black">Your Cart Is Empty</p>
         )}
         <br />
       </ol>
@@ -108,10 +108,36 @@ function Checkout(props) {
       </form>
 
       <div className="column box is-third">
-        Billing Information Placeholder
+        <div className="field">
+          <div className="control">
+            <label htmlFor="credit card number" className="label">
+              Credit Card Number:
+            </label>
+            <input type="text" name="credit card number" />
+          </div>
+        </div>
+
+        <div className="field">
+          <div className="control">
+            <label htmlFor="expiration date" className="label">
+              Expiration Date:
+            </label>
+            <input type="date" name="expiration date" />
+          </div>
+        </div>
+
+        <div className="field">
+          <div className="control">
+            <label htmlFor="CCV" className="label">
+              CCV Number:
+            </label>
+
+            <input type="text" name="CCV" />
+          </div>
+        </div>
         <br />
         <Link to="/confirmation">
-          <button type="button" className="button">
+          <button type="button" className="button control">
             Next Step!
           </button>
         </Link>
