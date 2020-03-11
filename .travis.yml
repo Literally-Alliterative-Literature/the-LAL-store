@@ -15,14 +15,16 @@ install:
 before_script:
   - psql -c 'create database "the-LAL-store";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 script:
-  - npm test             # test the code
+  - npm test # test the code
   - npm run build-client # make the bundle
-
-# before_deploy:
-#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
-# deploy:
-#   skip_cleanup: true # prevents travis from deleting the build
-#   provider: heroku
-#   app: YOUR-HEROKU-APP-NAME-HERE # see README
-#   api_key:
-#     secure: YOUR-***ENCRYPTED***-API-KEY-HERE # see README
+before_deploy: # omit node_modules, since we set skip_cleanup below
+  - rm -rf node_modules
+deploy: # see README for details on these keys
+  # prevents travis from deleting the build
+  skip_cleanup: true
+  provider: heroku
+  # app should be your heroku app name; see README
+  app: the-lal-store
+  # the secure key indicates an encrypted value; see README
+  api_key:
+    secure: BGGqUCL2poNindQe14ZRHeicnWs6MKDRXU45hkvBEmMq3MoiQnMy3O/TiOYkaRPW7ZafFuHKArCCs39do8ti9yVG+tIInKiVRMffkE9Eo2AD4JnQLB9FTR9KxPkBlJvPKmQQx5eaNjTE7gqI4bcZf6lOhQSt1BQdJC/tmMY67PtCxBuqTE9ZVV9qPJHODSaWKN1/2cmjlx7ldqWTe4OElcRYIPpp6OioLOcHKI4bnQYM6JljHtfgO8Ibvejscici7iQJvkmB3pOp0FtRYv72fhGXBAVo1hRhzdXdwH62lxu5y9qy8ZXez5tWUsQGXnkSU3pmLmXDhTr1wtJ+qeAxTu71IOtyZum/LIHLv7pEM3EkSoh6xcPLVALznoM81bWGtzklfO0dVUY07K0dPb8bIQZVXPxUS7CjXkjPAt48CoXrF4ciJGc5a8JODfBSVaTvsaYg/SkJJEMZsOeRAimNp75ya4kXljMzqum7bOiFoseahxbxmfrmsZZvWPh+2lNbSzxP+HnNNdpScQBgp/bEd6VFd7s8zdKAzE6Q9viQY+GLWK/aokIlR3KsrfWd0SeVUov6x09zt6Vi2cn3kLhqX22LXa07S7SCj2qhPBGX6Z0ccXhhNhb8O8+cDWfa8MnUeeWpW57tgFQVmeme4ik6WEQDCXUHLHPcktB1zQ9loEY=
