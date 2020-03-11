@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
+import {Link} from 'react-router-dom'
 
 /**
  * COMPONENT
@@ -69,7 +70,7 @@ const AuthForm = props => {
             alt="welcome"
           />
           <button type="button" className="button pushDown">
-            I need some books!
+            <Link to="/books">I need some books!</Link>
           </button>
         </div>
       </div>
