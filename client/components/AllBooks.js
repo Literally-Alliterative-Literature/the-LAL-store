@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react'
-import {connect} from 'react-redux'
-import {fetchBooks} from '../store/allbooks'
-import {Link} from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { connect } from 'react-redux'
+import { fetchBooks } from '../store/allbooks'
+import { Link } from 'react-router-dom'
 
 const paginationLimit = [12, 20]
 function AllBooks(props) {
@@ -47,24 +47,24 @@ function AllBooks(props) {
       <div className="columns is-multiline is-centered">
         {props.books.length
           ? props.books.map(book => {
-              return (
-                <div
-                  className="column is-one-quarter has-text-centered "
-                  key={book.id}
-                >
-                  <div className="card animated marginTop">
-                    <Link to={`/books/${book.id}`} className="allBookSingle">
-                      <h3 className="titleAllBooks">{book.title}</h3>
-                      <img
-                        src={book.imageUrl}
-                        className="animated bounceInUp"
-                      />
-                      <p className="subtitleAllBooks">${book.price}</p>
-                    </Link>
-                  </div>
+            return (
+              <div
+                className="column is-one-quarter has-text-centered "
+                key={book.id}
+              >
+                <div className="card animated marginTop">
+                  <Link to={`/books/${book.id}`} className="allBookSingle">
+                    <h3 className="titleAllBooks">{book.title}</h3>
+                    <img
+                      src={book.imageUrl}
+                      className="animated bounceInUp"
+                    />
+                    <p className="subtitleAllBooks">${book.price}</p>
+                  </Link>
                 </div>
-              )
-            })
+              </div>
+            )
+          })
           : false}
       </div>
       <div>
@@ -85,8 +85,8 @@ function AllBooks(props) {
               Previous Page
             </button>
           ) : (
-            false
-          )}
+              false
+            )}
           {page < number ? (
             <button
               type="button"
@@ -96,8 +96,8 @@ function AllBooks(props) {
               Next Page
             </button>
           ) : (
-            false
-          )}
+              false
+            )}
           {page !== number ? (
             <button
               type="button"
@@ -107,8 +107,8 @@ function AllBooks(props) {
               Last Page
             </button>
           ) : (
-            false
-          )}
+              false
+            )}
         </div>
       </div>
     </div>
