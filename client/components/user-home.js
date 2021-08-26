@@ -29,7 +29,7 @@ export const UserHome = props => {
             alt="welcome"
           />
           <button type="button" className="button pushDown">
-            I need some books!
+            <Link to={'/books'}>I need some books!</Link>
           </button>
         </div>
       </div>
